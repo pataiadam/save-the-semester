@@ -1,1 +1,3 @@
-# save-the-semester
+# demo
+
+a [Sails](http://sailsjs.org) application
