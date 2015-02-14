@@ -7,7 +7,11 @@
 
 module.exports = {
     identify: 'User',
+    autoPK: false,
     attributes: {
+        id: {
+          type: 'string'
+        },
         name: {
           type: 'string',
           size: 128
@@ -15,7 +19,9 @@ module.exports = {
         email: {
             type: 'string',
             email: true
-        }
+        }/*,//Just an example function
+        logId: function(){
+          sails.log.debug(this.id);
+        }*/
     }
 };
-

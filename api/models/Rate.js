@@ -8,7 +8,27 @@
 module.exports = {
 
   attributes: {
-
+    identify: 'Rate',
+    autoPK: false,
+    attributes: {
+        id: {
+          type: 'string'
+        },
+        userId: {
+          type: 'string'
+        },
+        ratedUserId: {
+            type: 'string'
+        },
+        circleId: {
+            type: 'string'
+        },
+        value: {
+            type: 'int'
+        },
+        comment: {
+            type: 'string'
+        }
+    }
   }
 };
-
