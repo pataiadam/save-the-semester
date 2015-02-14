@@ -7,9 +7,8 @@
 
 module.exports = {
 	index: function (req, res) {
-        User.find().exec(function (err, userInstance) {
-            res.json(userInstance);
+        User.findOne({name: 'Asd'}).exec(function (err, userInstance) {
+						res.json(userInstance);
         });
     }
 };
-
