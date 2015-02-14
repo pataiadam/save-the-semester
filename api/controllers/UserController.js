@@ -8,7 +8,7 @@
 module.exports = {
   index: function (req, res) {
         User.find().exec(function (err, users) {
-						if(!!err){
+            if(!!err){
               sails.log.error(err);
               res.flash(err);
             }
