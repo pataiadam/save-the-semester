@@ -6,9 +6,18 @@
 */
 
 module.exports = {
-
-  attributes: {
-
-  }
+    identify: 'CircleMember',
+    autoPK: false,
+    attributes: {
+        circleMemberId: {
+            type: 'string'
+        },
+        userId: {
+            type: 'string'
+        },
+        circleId: {
+            type: 'string'
+        }
+    }
 };
 
