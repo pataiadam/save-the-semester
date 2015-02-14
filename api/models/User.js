@@ -7,7 +7,7 @@
 
 module.exports = {
     identify: 'User',
-    autoPK: false,
+    //autoPK: false,
     attributes: {
         id: {
           type: 'string'
