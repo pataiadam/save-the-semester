@@ -6,9 +6,19 @@
 */
 
 module.exports = {
-
-  attributes: {
-
-  }
+    identify: 'CircleZ',
+    autoPK: false,
+    attributes: {
+        id: {
+            type: 'string'
+        },
+        name: {
+            type: 'string',
+            size: 128
+        },
+        creatorId: {
+            type: 'string'
+        }
+    }
 };
 
