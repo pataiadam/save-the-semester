@@ -6,33 +6,36 @@
     <div class="panel-body">
       <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped">
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>name</th>
-              <th>email</th>
-              <th>actions</th>
-            </tr>
-          </thead>
           <tbody>
-            {{#each users}}
-              <tr>
-                <td>{{this.id}}</td>
-                <td>{{this.name}}</td>
-                <td>{{this.email}}</td>
-                <td>
-                  <a href="/user/show?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Show</a>
-                  <a href="/update" class="btn btn-xs btn-primary" role="button">Update</a>
-                  <a href="/delete" class="btn btn-xs btn-danger" role="button">Delete</a>
-                </td>
-              </tr>
-            {{/each}}
+            <tr>
+              <td>Id:</td>
+              <td>{{user.id}}</td>
+            </tr>
+            <tr>
+              <td>Name:</td>
+              <td>{{user.name}}</td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>{{user.email}}</td>
+            </tr>
+            <tr>
+              <td>CreatedAt</td>
+              <td>{{user.createdAt}}</td>
+            </tr>
+            <tr>
+              <td>UpdatedAt</td>
+              <td>{{user.updatedAt}}</td>
+            </tr>
+            <tr>
+              <td>DeletedAt</td>
+              <td>{{user.deletedAt}}</td>
+            </tr>
           </tbody>
         </table>
       </div>
-      <div class="text-right">
-        <a href="/user/create">Create new user <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
     </div>
+    <a href="/user/update?id={{user.id}}" class="btn btn-primary">Update</a>
+    <a href="/user/delete?id={{user.id}}" class="btn btn-primary">Delete</a>
   </div>
 </div>

@@ -22,8 +22,10 @@
                 <td>{{this.email}}</td>
                 <td>
                   <a href="/user/show?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Show</a>
-                  <a href="/update" class="btn btn-xs btn-primary" role="button">Update</a>
-                  <a href="/delete" class="btn btn-xs btn-danger" role="button">Delete</a>
+                  <a href="/user/update?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Update</a>
+                  {{#unless this.deletedAt}}
+                    <a href="/user/delete?id={{this.id}}" class="btn btn-xs btn-danger" role="button">Delete</a>
+                  {{/unless}}
                 </td>
               </tr>
             {{/each}}
