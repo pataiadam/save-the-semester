@@ -9,7 +9,7 @@ module.exports = {
     identify: 'CircleMember',
     autoPK: false,
     attributes: {
-        circleMemberId: {
+        id: {
             type: 'string'
         },
         userId: {
