@@ -6,9 +6,14 @@
  */
 
 module.exports = {
-	index: function (req, res) {
-        User.findOne({name: 'Asd'}).exec(function (err, userInstance) {
-						res.json(userInstance);
+  index: function (req, res) {
+        User.find().exec(function (err, users) {
+            if(!!err){
+              sails.log.error(err);
+              res.flash(err);
+            }
+
+            res.view({users: users});
         });
     }
 };
