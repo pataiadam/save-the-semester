@@ -6,8 +6,8 @@
 */
 
 module.exports = {
-    identify: 'Circle',
-    //autoPK: false,
+    identify: 'CircleZ',
+    autoPK: false,
     attributes: {
         id: {
             type: 'objectid'
