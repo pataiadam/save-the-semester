@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"> Rates</h3>
+    </div>
+    <div class="panel-body">
+        <form method="POST" role="form">
+
+            <input type="hidden" name="id" value="{{rate.id}}">
+
+            //TODO: Populate and dropdown select users, value and circle
+            <div class="form-group">
+                <label>User</label>
+                <input class="form-control" name="userId" value="{{rate.userId}}">
+            </div>
+
+            <div class="form-group">
+                <label>RatedUser</label>
+                <input class="form-control" name="ratedUserId" value="{{rate.ratedUserId}}">
+            </div>
+
+            <div class="form-group">
+                <label>Circle</label>
+                <input class="form-control" name="circleId" value="{{rate.circleId}}">
+            </div>
+
+            <div class="form-group">
+                <label>Value</label>
+                <input class="form-control" name="value" value="{{rate.value}}">
+            </div>
+
+            <div class="form-group">
+                <label>Comment</label>
+                <input class="form-control" name="comment" value="{{rate.comment}}">
+            </div>
+
+            <button type="submit" class="btn btn-default">Submit Button</button>
+            <button type="reset" class="btn btn-default">Reset Button</button>
+        </form>
+    </div>
+  </div>
+</div>
