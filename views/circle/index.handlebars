@@ -1,0 +1,15 @@
+Circles
+
+<br>
+<br>
+
+<div class="circles">
+    {{#each circles}}
+        <div class="circle">
+            <h3>{{this.name}}</h3>
+            id: {{this.id}}<br>
+            creatorId: {{this.creatorId}}<br>
+            deletedAt: {{this.deletedAt}}
+        </div>
+    {{/each}}
+</div>

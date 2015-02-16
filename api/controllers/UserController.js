@@ -6,11 +6,11 @@
  */
 
 module.exports = {
-  index: function (req, res) {
+    index: function (req, res) {
         User.find().exec(function (err, users) {
-            if(!!err){
-              sails.log.error(err);
-              res.flash(err);
+            if (!!err) {
+                sails.log.error(err);
+                res.flash(err);
             }
 
             res.view({users: users});
