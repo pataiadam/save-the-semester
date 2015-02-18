@@ -6,9 +6,17 @@
 */
 
 module.exports = {
-
-  attributes: {
-
+    identify: 'Learner',
+    attributes: {
+          id: {
+              type: 'string'
+          },
+          userId: {
+              type: 'string'
+          },
+          coachId: {
+              type: 'string'
+          }
   }
 };
 

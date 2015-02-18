@@ -6,9 +6,20 @@
 */
 
 module.exports = {
-
-  attributes: {
-
-  }
+    identify: 'Coach',
+    attributes: {
+        id: {
+          type: 'string'
+        },
+        userId: {
+            type: 'string'
+        },
+        subject: {
+            type: 'string'
+        },
+        description: {
+            type: 'string'
+        }
+    }
 };
 
