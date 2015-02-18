@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"> Circle Member</h3>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>userId</th>
+                        <th>circleId</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each circleMembers}}
+                        <tr>
+                            <td>{{this.id}}</td>
+                            <td>{{this.userId}}</td>
+                            <td>{{this.circleId}}</td>
+                            <td>
+                                <a href="/circlemember/show?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Show</a>
+                                <a href="/circlemember/update?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Update</a>
+                                {{#unless this.deletedAt}}
+                                    <a href="/circlemember/delete?id={{this.id}}" class="btn btn-xs btn-danger" role="button">Delete</a>
+                                {{/unless}}
+                            </td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-right">
+                <a href="/circlemember/create">Create new circlemember <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
