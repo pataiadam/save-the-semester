@@ -15,31 +15,59 @@ module.exports = {
             res.view({circles: circles});
         });
     },
-    create: function (req, res) {
-        Circle.create(req.body).exec(function (err, circle) {
-            if (!!err) {
+    show: function(req, res){
+        Circle.findOne({id: req.query.id}).exec(function (err, circle) {
+            if(!!err){
                 sails.log.error(err);
                 res.flash(err);
             }
-            res.json({circle: circle});
+
+            res.view({circle: circle});
         });
+    },
+    create: function (req, res) {
+        if(req.method === 'GET') {
+            res.view();
+        }else {
+            Circle.create(req.body).exec(function (err, circle) {
+                if (!!err) {
+                    sails.log.error(err);
+                    res.flash(err);
+                }
+                
+                res.redirect('/circle/show?id=' + circle.id);
+            });
+        }
     },
     update: function (req, res) {
-        Circle.update({id: req.body.id}, req.body).exec(function (err, updated) {
-            if (!!err) {
-                sails.log.error(err);
-                res.flash(err);
-            }
-            res.json({circles: updated});
-        });
+        if(req.method === 'GET') {
+            Circle.findOne({id: req.query.id}).exec(function (err, circle) {
+                if(!!err){
+                    sails.log.error(err);
+                    res.flash(err);
+                }
+
+                res.view({circle: circle});
+            });
+        } else {
+            Circle.update({id: req.body.id}, req.body).exec(function (err) {
+                if (!!err) {
+                    sails.log.error(err);
+                    res.flash(err);
+                }
+                
+                res.redirect('/circle/show?id=' + req.body.id);
+            });
+        }
     },
     delete: function (req, res) {
-        Circle.update({id: req.body.id}, {deletedAt: new Date()}).exec(function (err, circle) {
+        Circle.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err, circle) {
             if (!!err) {
                 sails.log.error(err);
                 res.flash(err);
             }
-            res.json({deleted: circle});
+            
+            res.redirect('/circle');
         });
     }
 };

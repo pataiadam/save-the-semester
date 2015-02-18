@@ -1,15 +1,41 @@
-Circles
-
-<br>
-<br>
-
-<div class="circles">
-    {{#each circles}}
-        <div class="circle">
-            <h3>{{this.name}}</h3>
-            id: {{this.id}}<br>
-            creatorId: {{this.creatorId}}<br>
-            deletedAt: {{this.deletedAt}}
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"> Circles</h3>
         </div>
-    {{/each}}
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>creatorId</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each circles}}
+                        <tr>
+                            <td>{{this.id}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.creatorId}}</td>
+                            <td>
+                                <a href="/circle/show?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Show</a>
+                                <a href="/circle/update?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Update</a>
+                                {{#unless this.deletedAt}}
+                                    <a href="/circle/delete?id={{this.id}}" class="btn btn-xs btn-danger" role="button">Delete</a>
+                                {{/unless}}
+                            </td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-right">
+                <a href="/circle/create">Create new circle <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
 </div>
+
