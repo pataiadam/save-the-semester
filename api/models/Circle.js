@@ -6,11 +6,11 @@
 */
 
 module.exports = {
-    identify: 'CircleZ',
+    identify: 'Circle',
     //autoPK: false,
     attributes: {
         id: {
-            type: 'string'
+            type: 'objectid'
         },
         name: {
             type: 'string',

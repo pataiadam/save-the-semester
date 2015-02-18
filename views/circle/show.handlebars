@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"> Circle</h3>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                    <tbody>
+                    <tr>
+                        <td>Id:</td>
+                        <td>{{circle.id}}</td>
+                    </tr>
+                    <tr>
+                        <td>Name:</td>
+                        <td>{{circle.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Creator Id</td>
+                        <td>{{circle.creatorId}}</td>
+                    </tr>
+                    <tr>
+                        <td>CreatedAt</td>
+                        <td>{{circle.createdAt}}</td>
+                    </tr>
+                    <tr>
+                        <td>UpdatedAt</td>
+                        <td>{{circle.updatedAt}}</td>
+                    </tr>
+                    <tr>
+                        <td>DeletedAt</td>
+                        <td>{{circle.deletedAt}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <a href="/circle/update?id={{circle.id}}" class="btn btn-primary">Update</a>
+        <a href="/circle/delete?id={{circle.id}}" class="btn btn-primary">Delete</a>
+    </div>
+</div>
