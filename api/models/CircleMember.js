@@ -10,7 +10,7 @@ module.exports = {
     //autoPK: false,
     attributes: {
         id: {
-            type: 'string'
+            type: 'objectid'
         },
         userId: {
             type: 'string'
