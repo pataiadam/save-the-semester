@@ -9,7 +9,7 @@ module.exports = {
     identify: 'Coach',
     attributes: {
         id: {
-          type: 'string'
+          type: 'objectid'
         },
         userId: {
             type: 'string'
@@ -22,4 +22,3 @@ module.exports = {
         }
     }
 };
-
