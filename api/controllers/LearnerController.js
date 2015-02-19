@@ -18,7 +18,6 @@ module.exports = {
 					});
 			});
 	},
-
 	create: function(req, res) {
 			var callback = function(err, learner) {
 					if (!!err) {
