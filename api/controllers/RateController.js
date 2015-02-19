@@ -22,7 +22,6 @@ module.exports = {
               sails.log.error(err);
               res.flash(err);
             }
-
             res.view({rate: rate});
         });
     },
