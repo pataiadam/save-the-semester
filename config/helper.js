@@ -1,7 +1,7 @@
 var moment = require('moment');
 module.exports = {
     formatDate: function(date, format) {
-        if (date === null) {
+        if (date === null || date === undefined) {
             return '';
         }
         if (typeof format === 'object') {
