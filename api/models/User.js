@@ -21,9 +21,6 @@ module.exports = {
         email: {
             type: 'string',
             email: true
-        }, //Just an example function
-        logId: function() {
-            sails.log.debug(this.id);
         }
     }
 };

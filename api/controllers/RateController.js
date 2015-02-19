@@ -7,17 +7,16 @@
 
 module.exports = {
     index: function (req, res) {
-        Rate.find().exec(function (err, rates) {
+        Rate.find().populateAll().exec(function (err, rates) {
             if(!!err){
               sails.log.error(err);
               res.flash(err);
             }
-
             res.view({rates: rates});
         });
     },
     show: function(req, res){
-        Rate.findOne({id: req.query.id}).exec(function (err, rate) {
+        Rate.findOne({id: req.query.id}).populateAll().exec(function (err, rate) {
             if(!!err){
               sails.log.error(err);
               res.flash(err);
@@ -27,7 +26,19 @@ module.exports = {
     },
     create: function(req, res){
         if(req.method==='GET'){
-            res.view();
+            User.find().exec(function(err, users){
+                if(!!err){
+                  sails.log.error(err);
+                  res.flash(err);
+                }
+                Circle.find().exec(function(err, circles){
+                    if(!!err){
+                      sails.log.error(err);
+                      res.flash(err);
+                    }
+                    res.view({users: users, circles: circles});
+                });
+            });
         }else{
             Rate.create(req.body).exec(function (err, rate) {
                 if(!!err){
@@ -46,17 +57,29 @@ module.exports = {
                   sails.log.error(err);
                   res.flash(err);
                 }
-
-                res.view({rate: rate});
+                User.find().exec(function(err, users){
+                    if(!!err){
+                      sails.log.error(err);
+                      res.flash(err);
+                    }
+                    Circle.find().exec(function(err, circles){
+                        if(!!err){
+                          sails.log.error(err);
+                          res.flash(err);
+                        }
+                        res.view({rate: rate, users: users, circles: circles});
+                    });
+                });
             });
         }else{
-            Rate.update({id: req.body.id}, req.body).exec(function (err) {
+            var id = req.body.id;
+            delete req.body.id;
+            Rate.update({id: id}, req.body).exec(function (err) {
                 if(!!err){
                   sails.log.error(err);
                   res.flash(err);
                 }
-
-                res.redirect('/rate/show?id='+req.body.id);
+                res.redirect('/rate/show?id='+id);
             });
         }
     },

@@ -21,16 +21,13 @@ module.exports = {
             model: 'User'
         },
         circleId: {
-            type: 'string'
+            model: 'Circle'
         },
         value: {
             type: 'int'
         },
         comment: {
             type: 'string'
-        }, //Just an example function
-        logId: function() {
-            sails.log.debug(this.id);
         }
     }
 };

@@ -22,7 +22,6 @@ module.exports = {
               sails.log.error(err);
               res.flash(err);
             }
-            user.logId();
             res.view({user: user});
         });
     },

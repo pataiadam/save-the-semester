@@ -5,20 +5,31 @@
     </div>
     <div class="panel-body">
         <form method="POST" role="form">
-            //TODO: Populate and dropdown select users, value and circle
             <div class="form-group">
                 <label>User</label>
-                <input class="form-control" name="userId">
+                <select class="form-control" name="userId">
+                    {{#each users}}
+                        <option value="{{this.id}}">{{this.name}}</option>
+                    {{/each}}
+                </select>
             </div>
 
             <div class="form-group">
                 <label>RatedUser</label>
-                <input class="form-control" name="ratedUserId">
+                <select class="form-control" name="ratedUserId">
+                    {{#each users}}
+                        <option value="{{this.id}}">{{this.name}}</option>
+                    {{/each}}
+                </select>
             </div>
 
             <div class="form-group">
                 <label>Circle</label>
-                <input class="form-control" name="circleId">
+                <select class="form-control" name="circleId">
+                    {{#each circles}}
+                        <option value="{{this.id}}">{{this.name}}</option>
+                    {{/each}}
+                </select>
             </div>
 
             <div class="form-group">
