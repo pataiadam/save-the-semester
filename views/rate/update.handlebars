@@ -8,20 +8,43 @@
 
             <input type="hidden" name="id" value="{{rate.id}}">
 
-            //TODO: Populate and dropdown select users, value and circle
             <div class="form-group">
                 <label>User</label>
-                <input class="form-control" name="userId" value="{{rate.userId}}">
+                <select class="form-control" name="userId">
+                    {{#each users}}
+                        {{#isEqual this.id ../rate.userId}}
+                            <option value="{{this.id}}" selected="selected">{{this.name}}</option>
+                        {{else}}
+                            <option value="{{this.id}}">{{this.name}}</option>
+                        {{/isEqual}}
+                    {{/each}}
+                </select>
             </div>
 
             <div class="form-group">
                 <label>RatedUser</label>
-                <input class="form-control" name="ratedUserId" value="{{rate.ratedUserId}}">
+                <select class="form-control" name="ratedUserId">
+                    {{#each users}}
+                        {{#isEqual this.id ../rate.ratedUserId}}
+                            <option value="{{this.id}}" selected="selected">{{this.name}}</option>
+                        {{else}}
+                            <option value="{{this.id}}">{{this.name}}</option>
+                        {{/isEqual}}
+                    {{/each}}
+                </select>
             </div>
 
             <div class="form-group">
                 <label>Circle</label>
-                <input class="form-control" name="circleId" value="{{rate.circleId}}">
+                <select class="form-control" name="circleId">
+                    {{#each circles}}
+                        {{#isEqual this.id ../rate.circleId}}
+                            <option value="{{this.id}}" selected="selected">{{this.name}}</option>
+                        {{else}}
+                            <option value="{{this.id}}">{{this.name}}</option>
+                        {{/isEqual}}
+                    {{/each}}
+                </select>
             </div>
 
             <div class="form-group">

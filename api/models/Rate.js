@@ -6,29 +6,28 @@
  */
 
 module.exports = {
-
+    tableName: 'rate',
+    identify: 'Rate',
+    //autoPK: false,
     attributes: {
-        identify: 'Rate',
-        //autoPK: false,
-        attributes: {
-            id: {
-                type: 'string'
-            },
-            userId: {
-                type: 'string'
-            },
-            ratedUserId: {
-                type: 'string'
-            },
-            circleId: {
-                type: 'string'
-            },
-            value: {
-                type: 'int'
-            },
-            comment: {
-                type: 'string'
-            }
+        id: {
+            primaryKey: true,
+            type: 'objectid'
+        },
+        userId: {
+            model: 'User'
+        },
+        ratedUserId: {
+            model: 'User'
+        },
+        circleId: {
+            model: 'Circle'
+        },
+        value: {
+            type: 'int'
+        },
+        comment: {
+            type: 'string'
         }
     }
 };

@@ -12,16 +12,16 @@
               <td>{{rate.id}}</td>
             </tr>
             <tr>
-              <td>UserId:</td>
-              <td>{{rate.userId}}</td>
+              <td>User:</td>
+              <td>{{rate.userId.name}}</td>
             </tr>
             <tr>
-              <td>RatedUserId</td>
-              <td>{{rate.ratedUserId}}</td>
+              <td>RatedUser</td>
+              <td>{{rate.ratedUserId.name}}</td>
             </tr>
             <tr>
-              <td>CircleId</td>
-              <td>{{rate.circleId}}</td>
+              <td>Circle</td>
+              <td>{{rate.circleId.name}}</td>
             </tr>
             <tr>
               <td>Value</td>
@@ -33,15 +33,15 @@
             </tr>
             <tr>
               <td>CreatedAt</td>
-              <td>{{rate.createdAt}}</td>
+              <td>{{formatDate rate.createdAt}}</td>
             </tr>
             <tr>
               <td>UpdatedAt</td>
-              <td>{{rate.updatedAt}}</td>
+              <td>{{formatDate rate.updatedAt}}</td>
             </tr>
             <tr>
               <td>DeletedAt</td>
-              <td>{{rate.deletedAt}}</td>
+              <td>{{formatDate rate.deletedAt}}</td>
             </tr>
           </tbody>
         </table>

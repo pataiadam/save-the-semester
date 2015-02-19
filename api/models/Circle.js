@@ -6,10 +6,12 @@
 */
 
 module.exports = {
+    tableName: 'circle',
     identify: 'Circle',
     //autoPK: false,
     attributes: {
         id: {
+            primaryKey: true,
             type: 'objectid'
         },
         name: {
@@ -21,4 +23,3 @@ module.exports = {
         }
     }
 };
-
