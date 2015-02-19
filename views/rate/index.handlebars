@@ -9,8 +9,8 @@
           <thead>
             <tr>
               <th>id</th>
-              <th>circleId</th>
-              <th>userId</th>
+              <th>circle</th>
+              <th>user</th>
               <th>actions</th>
             </tr>
           </thead>
@@ -18,8 +18,8 @@
             {{#each rates}}
               <tr>
                 <td>{{this.id}}</td>
-                <td>{{this.circleId}}</td>
-                <td>{{this.userId}}</td>
+                <td>{{this.circleId.name}}</td>
+                <td>{{this.userId.name}}</td>
                 <td>
                   <a href="/rate/show?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Show</a>
                   <a href="/rate/update?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Update</a>
