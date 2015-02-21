@@ -32,7 +32,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': 'AuthController.index'
+  '/': 'AuthController.index',
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
@@ -42,5 +42,6 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-
+  'POST /webapi/:controller/:action': 'webapi/:controllerController:action'
+  //  'POST /mobApi/:controller/:action': 'mobApi/:controllerController:action'
 };
