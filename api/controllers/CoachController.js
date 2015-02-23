@@ -10,7 +10,7 @@ module.exports = {
         Coach.find().exec(function(err, coaches) {
             if (!!err) {
                 sails.log.error(err);
-                res.flash(err);
+                req.flash(err);
             }
 
             res.view({
@@ -23,7 +23,7 @@ module.exports = {
         var callback = function(err, coach) {
             if (!!err) {
                 sails.log.error(err);
-                res.flash(err);
+                req.flash(err);
             }
             res.redirect('/coach/show?id='+coach.id);
         }
@@ -37,7 +37,7 @@ module.exports = {
         Coach.findOne({id: req.query.id}).exec(function(err, coach){
             if (!!err) {
                 sails.log.error(err);
-                res.flash(err);
+                req.flash(err);
             }
             res.view({coach: coach});
         });
@@ -47,7 +47,7 @@ module.exports = {
             Coach.findOne({id: req.query.id}).exec(function(err, coach){
                 if (!!err) {
                     sails.log.error(err);
-                    res.flash(err);
+                    req.flash(err);
                 }
                 res.view({coach: coach});
             });
@@ -55,7 +55,7 @@ module.exports = {
             Coach.update({id: req.body.id}, req.body).exec(function(err){
                 if (!!err) {
                     sails.log.error(err);
-                    res.flash(err);
+                    req.flash(err);
                 }
                 res.redirect('/coach/show?id='+req.body.id);
             });
@@ -63,9 +63,9 @@ module.exports = {
     },
     delete: function(req, res){
         Coach.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err) {
-            if(!!err){
-              sails.log.error(err);
-              res.flash(err);
+            if (!!err) {
+                sails.log.error(err);
+                req.flash(err);
             }
 
             res.redirect('/coach');

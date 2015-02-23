@@ -9,8 +9,8 @@ module.exports = {
     index: function (req, res) {
         Rate.find().populateAll().exec(function (err, rates) {
             if(!!err){
-              sails.log.error(err);
-              res.flash(err);
+                sails.log.error(err);
+                req.flash(err);
             }
             res.view({rates: rates});
         });
@@ -18,8 +18,8 @@ module.exports = {
     show: function(req, res){
         Rate.findOne({id: req.query.id}).populateAll().exec(function (err, rate) {
             if(!!err){
-              sails.log.error(err);
-              res.flash(err);
+                sails.log.error(err);
+                req.flash(err);
             }
             res.view({rate: rate});
         });
@@ -28,13 +28,13 @@ module.exports = {
         if(req.method==='GET'){
             User.find().exec(function(err, users){
                 if(!!err){
-                  sails.log.error(err);
-                  res.flash(err);
+                    sails.log.error(err);
+                    req.flash(err);
                 }
                 Circle.find().exec(function(err, circles){
                     if(!!err){
-                      sails.log.error(err);
-                      res.flash(err);
+                        sails.log.error(err);
+                        req.flash(err);
                     }
                     res.view({users: users, circles: circles});
                 });
@@ -42,8 +42,8 @@ module.exports = {
         }else{
             Rate.create(req.body).exec(function (err, rate) {
                 if(!!err){
-                  sails.log.error(err);
-                  res.flash(err);
+                    sails.log.error(err);
+                    req.flash(err);
                 }
 
                 res.redirect('/rate/show?id='+rate.id);
@@ -54,18 +54,18 @@ module.exports = {
         if(req.method==='GET'){
             Rate.findOne({id: req.query.id}).exec(function (err, rate) {
                 if(!!err){
-                  sails.log.error(err);
-                  res.flash(err);
+                    sails.log.error(err);
+                    req.flash(err);
                 }
                 User.find().exec(function(err, users){
                     if(!!err){
-                      sails.log.error(err);
-                      res.flash(err);
+                        sails.log.error(err);
+                        req.flash(err);
                     }
                     Circle.find().exec(function(err, circles){
                         if(!!err){
-                          sails.log.error(err);
-                          res.flash(err);
+                            sails.log.error(err);
+                            req.flash(err);
                         }
                         res.view({rate: rate, users: users, circles: circles});
                     });
@@ -76,8 +76,8 @@ module.exports = {
             delete req.body.id;
             Rate.update({id: id}, req.body).exec(function (err) {
                 if(!!err){
-                  sails.log.error(err);
-                  res.flash(err);
+                    sails.log.error(err);
+                    req.flash(err);
                 }
                 res.redirect('/rate/show?id='+id);
             });
@@ -86,8 +86,8 @@ module.exports = {
     delete: function(req, res){
         Rate.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err) {
             if(!!err){
-              sails.log.error(err);
-              res.flash(err);
+                sails.log.error(err);
+                req.flash(err);
             }
 
             res.redirect('/rate');

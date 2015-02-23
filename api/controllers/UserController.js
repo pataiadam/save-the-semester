@@ -10,7 +10,7 @@ module.exports = {
         User.find().exec(function (err, users) {
             if (!!err) {
                 sails.log.error(err);
-                res.flash(err);
+                req.flash(err);
             }
 
             res.view({users: users});
@@ -19,8 +19,8 @@ module.exports = {
     show: function(req, res){
         User.findOne({id: req.query.id}).exec(function (err, user) {
             if(!!err){
-              sails.log.error(err);
-              res.flash(err);
+                sails.log.error(err);
+                req.flash(err);
             }
             res.view({user: user});
         });
@@ -31,8 +31,8 @@ module.exports = {
         }else{
             User.create(req.body).exec(function (err, user) {
                 if(!!err){
-                  sails.log.error(err);
-                  res.flash(err);
+                    sails.log.error(err);
+                    req.flash(err);
                 }
 
                 res.redirect('/user/show?id='+user.id);
@@ -43,8 +43,8 @@ module.exports = {
         if(req.method==='GET'){
             User.findOne({id: req.query.id}).exec(function (err, user) {
                 if(!!err){
-                  sails.log.error(err);
-                  res.flash(err);
+                    sails.log.error(err);
+                    req.flash(err);
                 }
 
                 res.view({user: user});
@@ -52,8 +52,8 @@ module.exports = {
         }else{
             User.update({id: req.body.id}, req.body).exec(function (err) {
                 if(!!err){
-                  sails.log.error(err);
-                  res.flash(err);
+                    sails.log.error(err);
+                    req.flash(err);
                 }
 
                 res.redirect('/user/show?id='+req.body.id);
@@ -63,8 +63,8 @@ module.exports = {
     delete: function(req, res){
         User.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err) {
             if(!!err){
-              sails.log.error(err);
-              res.flash(err);
+                sails.log.error(err);
+                req.flash(err);
             }
 
             res.redirect('/user');
