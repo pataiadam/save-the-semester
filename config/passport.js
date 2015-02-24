@@ -19,33 +19,14 @@ module.exports.passport = {
     strategy: require('passport-local').Strategy
   },
 
-  twitter: {
-    name: 'Twitter',
-    protocol: 'oauth',
-    strategy: require('passport-twitter').Strategy,
-    options: {
-      consumerKey: 'your-consumer-key',
-      consumerSecret: 'your-consumer-secret'
-    }
-  },
-
-  github: {
-    name: 'GitHub',
-    protocol: 'oauth2',
-    strategy: require('passport-github').Strategy,
-    options: {
-      clientID: 'your-client-id',
-      clientSecret: 'your-client-secret'
-    }
-  },
-
   facebook: {
     name: 'Facebook',
     protocol: 'oauth2',
     strategy: require('passport-facebook').Strategy,
     options: {
       clientID: '1403704419936183',
-      clientSecret: '44c8391d322576e7ac28979eca2aaa40'
+      clientSecret: '44c8391d322576e7ac28979eca2aaa40',
+      callbackURL: 'http://localhost:1337/auth/facebook/callback'
     }
   },
 
