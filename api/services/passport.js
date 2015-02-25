@@ -92,10 +92,8 @@ passport.connect = function (req, query, profile, next) {
     // If neither an email or a username was available in the profile, we don't
     // have a way of identifying the user in the future. Throw an error and let
     // whoever's next in the line take care of it.
-    sails.log.debug(user);
-    sails.log.debug(profile);
     if (!user.name && !user.email) {
-        return next(new Error('Neither a username nor email was available'));
+        return next(new Error('Neither a name nor email was available'));
     }
 
     Passport.findOne({
