@@ -8,7 +8,7 @@
 module.exports = {
     tableName: 'user',
     identify: 'User',
-    //autoPK: false,
+    schema: true,
     attributes: {
         id: {
             primaryKey: true,
@@ -19,8 +19,12 @@ module.exports = {
             size: 128
         },
         email: {
-            type: 'string',
+            type: 'email',
             email: true
+        },
+        passports: {
+            collection: 'Passport',
+            via: 'user'
         }
     }
 };

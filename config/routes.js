@@ -32,7 +32,17 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': 'AuthController.index',
+    '/': 'AuthController.login',
+    'get /login': 'AuthController.login',
+    'get /logout': 'AuthController.logout',
+    'get /register': 'AuthController.register',
+
+    'post /auth/local': 'AuthController.callback',
+    'post /auth/local/:action': 'AuthController.callback',
+
+    'get /auth/:provider': 'AuthController.provider',
+    'get /auth/:provider/callback': 'AuthController.callback',
+    'get /auth/:provider/:action': 'AuthController.callback',
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
@@ -42,6 +52,6 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-  'POST /webapi/:controller/:action': 'webapi/:controllerController:action'
-  //  'POST /mobApi/:controller/:action': 'mobApi/:controllerController:action'
+      'POST /webapi/:controller/:action': 'webapi/:controllerController:action'
+      //  'POST /mobApi/:controller/:action': 'mobApi/:controllerController:action'
 };

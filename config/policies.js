@@ -27,7 +27,14 @@ module.exports.policies = {
   ***************************************************************************/
 
   // '*': true,
-
+    '*': [ 'passport', 'sessionAuth' ],
+    AuthController: {
+        '*': [ 'passport' ]
+    },
+    //TODO: remove, when client can login via webapi
+    'webapi/CoachController' :{
+            '*' : []
+    }
   /***************************************************************************
   *                                                                          *
   * Here's an example of mapping some policies to run before a controller    *
