@@ -82,5 +82,41 @@ module.exports = {
             jsonData.coach = coach;
             res.json(jsonData);
         });
+    },
+
+    getCoachBySearch: function (req, res){
+        var coachParams = req.body;
+        var jsonData = {
+            isSuccess: false,
+            error: '',
+            coaches: []
+        };
+
+        //TODO: create logic
+        res.json(jsonData);
+    },
+
+    updateCoach: function (req, res){
+        var coachParams = req.body;
+        var jsonData = {
+            isSuccess: false,
+            error: '',
+            coach: null
+        };
+
+        //TODO: create logic
+        res.json(jsonData);
+    },
+
+    deleteCoach: function (req, res){
+        var coachParams = req.body;
+        var jsonData = {
+            isSuccess: false,
+            error: '',
+            coach: null
+        };
+
+        //TODO: create logic
+        res.json(jsonData);
     }
 };
