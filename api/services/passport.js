@@ -189,7 +189,7 @@ passport.connect = function (req, query, profile, next) {
  * @param  {Object} res
  */
 passport.endpoint = function (req, res) {
-    var strategies = sails.config.passport
+    var strategies = sails.config.passport[sails.config.environment]
         , provider = req.param('provider')
         , options = {};
 
@@ -301,7 +301,7 @@ passport.callback = function (req, res, next) {
  */
 passport.loadStrategies = function () {
     var self = this
-        , strategies = sails.config.passport;
+        , strategies = sails.config.passport[sails.config.environment];
 
     Object.keys(strategies).forEach(function (key) {
         var options = {passReqToCallback: true}, Strategy;
