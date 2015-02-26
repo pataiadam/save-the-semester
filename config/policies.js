@@ -30,10 +30,6 @@ module.exports.policies = {
     '*': [ 'passport', 'sessionAuth' ],
     AuthController: {
         '*': [ 'passport' ]
-    },
-    //TODO: remove, when client can login via webapi
-    'webapi/CoachController' :{
-            '*' : []
     }
   /***************************************************************************
   *                                                                          *
