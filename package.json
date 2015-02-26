@@ -26,6 +26,7 @@
     "mongodb": "^1.4.31",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
+    "passport-facebook-token": "^0.4.0",
     "passport-github": "^0.1.5",
     "passport-google-oauth": "^0.1.5",
     "passport-local": "^1.0.0",
