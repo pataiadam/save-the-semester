@@ -101,8 +101,6 @@ var AuthController = {
      * @param {Object} res
      */
     provider: function (req, res) {
-        sails.log.debug('auth/provider');
-        sails.log.debug(req.params);
         passport.endpoint(req, res);
     },
 
