@@ -16,9 +16,9 @@ module.exports = {
             res.view({circleMembers: circleMembers});
         });
     },
-    show: function(req, res) {
+    show: function (req, res) {
         CircleMember.findOne({id: req.query.id}).exec(function (err, circleMember) {
-            if(!!err) {
+            if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
             }
@@ -26,12 +26,12 @@ module.exports = {
             res.view({circleMember: circleMember});
         });
     },
-    create: function(req, res) {
-        if(req.method === 'GET') {
+    create: function (req, res) {
+        if (req.method === 'GET') {
             res.view();
-        }else{
+        } else {
             CircleMember.create(req.body).exec(function (err, circleMember) {
-                if(!!err){
+                if (!!err) {
                     sails.log.error(err);
                     req.flash(err);
                 }
@@ -40,30 +40,30 @@ module.exports = {
             });
         }
     },
-    update: function(req, res) {
-        if(req.method === 'GET') {
+    update: function (req, res) {
+        if (req.method === 'GET') {
             CircleMember.findOne({id: req.query.id}).exec(function (err, circleMember) {
-                if(!!err){
+                if (!!err) {
                     sails.log.error(err);
                     req.flash(err);
                 }
 
                 res.view({circleMember: circleMember});
             });
-        }else{
+        } else {
             CircleMember.update({id: req.body.id}, req.body).exec(function (err) {
-                if(!!err){
+                if (!!err) {
                     sails.log.error(err);
                     req.flash(err);
                 }
 
-                res.redirect('/circlemember/show?id='+req.body.id);
+                res.redirect('/circlemember/show?id=' + req.body.id);
             });
         }
     },
-    delete: function(req, res){
+    delete: function (req, res) {
         CircleMember.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err) {
-            if(!!err){
+            if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
             }

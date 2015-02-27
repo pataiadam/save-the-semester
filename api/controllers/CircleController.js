@@ -15,9 +15,9 @@ module.exports = {
             res.view({circles: circles});
         });
     },
-    show: function(req, res){
+    show: function (req, res) {
         Circle.findOne({id: req.query.id}).exec(function (err, circle) {
-            if(!!err){
+            if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
             }
@@ -26,23 +26,23 @@ module.exports = {
         });
     },
     create: function (req, res) {
-        if(req.method === 'GET') {
+        if (req.method === 'GET') {
             res.view();
-        }else {
+        } else {
             Circle.create(req.body).exec(function (err, circle) {
                 if (!!err) {
                     sails.log.error(err);
                     req.flash(err);
                 }
-                
+
                 res.redirect('/circle/show?id=' + circle.id);
             });
         }
     },
     update: function (req, res) {
-        if(req.method === 'GET') {
+        if (req.method === 'GET') {
             Circle.findOne({id: req.query.id}).exec(function (err, circle) {
-                if(!!err){
+                if (!!err) {
                     sails.log.error(err);
                     req.flash(err);
                 }
@@ -55,7 +55,7 @@ module.exports = {
                     sails.log.error(err);
                     req.flash(err);
                 }
-                
+
                 res.redirect('/circle/show?id=' + req.body.id);
             });
         }
@@ -66,7 +66,7 @@ module.exports = {
                 sails.log.error(err);
                 req.flash(err);
             }
-            
+
             res.redirect('/circle');
         });
     }
