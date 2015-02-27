@@ -9,9 +9,9 @@
                     <thead>
                     <tr>
                         <th>id</th>
-                        <th>name</th>
-                        <th>creatorId</th>
-                        <th>actions</th>
+                        <th>Name</th>
+                        <th>Creator</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -19,7 +19,7 @@
                         <tr>
                             <td>{{this.id}}</td>
                             <td>{{this.name}}</td>
-                            <td>{{this.creatorId}}</td>
+                            <td>{{this.creatorId.name}}</td>
                             <td>
                                 <a href="/circle/show?id={{this.id}}" class="btn btn-xs btn-primary"
                                    role="button">Show</a>

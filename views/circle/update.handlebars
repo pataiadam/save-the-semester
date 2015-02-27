@@ -15,7 +15,15 @@
 
                 <div class="form-group">
                     <label>Creator Id</label>
-                    <input class="form-control" name="creatorId" value="{{circle.creatorId}}">
+                    <select class="form-control" name="creatorId">
+                        {{#each users}}
+                            {{#isEqual this.id ../circle.creatorId}}
+                                <option value="{{this.id}}" selected="selected">{{this.name}}</option>
+                            {{else}}
+                                <option value="{{this.id}}">{{this.name}}</option>
+                            {{/isEqual}}
+                        {{/each}}
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-default">Submit</button>

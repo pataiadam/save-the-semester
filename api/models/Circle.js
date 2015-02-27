@@ -19,7 +19,7 @@ module.exports = {
             size: 128
         },
         creatorId: {
-            type: 'string'
+            model: 'User'
         }
     }
 };

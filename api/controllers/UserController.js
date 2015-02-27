@@ -50,13 +50,15 @@ module.exports = {
                 res.view({user: user});
             });
         } else {
-            User.update({id: req.body.id}, req.body).exec(function (err) {
+            var id = req.body.id;
+            req.body.id = null;
+            User.update({id: id}, req.body).exec(function (err) {
                 if (!!err) {
                     sails.log.error(err);
                     req.flash(err);
                 }
 
-                res.redirect('/user/show?id=' + req.body.id);
+                res.redirect('/user/show?id=' + id);
             });
         }
     },

@@ -7,7 +7,7 @@
 
 module.exports = {
     index: function (req, res) {
-        Circle.find().exec(function (err, circles) {
+        Circle.find().populateAll().exec(function (err, circles) {
             if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
@@ -16,7 +16,7 @@ module.exports = {
         });
     },
     show: function (req, res) {
-        Circle.findOne({id: req.query.id}).exec(function (err, circle) {
+        Circle.findOne({id: req.query.id}).populateAll().exec(function (err, circle) {
             if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
@@ -27,7 +27,14 @@ module.exports = {
     },
     create: function (req, res) {
         if (req.method === 'GET') {
-            res.view();
+            User.find().exec(function (err, users) {
+                if (!!err) {
+                    sails.log.error(err);
+                    req.flash(err);
+                }
+
+                res.view({users: users});
+            });
         } else {
             Circle.create(req.body).exec(function (err, circle) {
                 if (!!err) {
@@ -46,17 +53,24 @@ module.exports = {
                     sails.log.error(err);
                     req.flash(err);
                 }
-
-                res.view({circle: circle});
+                User.find().exec(function (err, users) {
+                    if (!!err) {
+                        sails.log.error(err);
+                        req.flash(err);
+                    }
+                    res.view({circle: circle, users: users});
+                });
             });
         } else {
-            Circle.update({id: req.body.id}, req.body).exec(function (err) {
+            var id = req.body.id;
+            req.body.id = null;
+            Circle.update({id: id}, req.body).exec(function (err) {
                 if (!!err) {
                     sails.log.error(err);
                     req.flash(err);
                 }
 
-                res.redirect('/circle/show?id=' + req.body.id);
+                res.redirect('/circle/show?id=' + id);
             });
         }
     },
