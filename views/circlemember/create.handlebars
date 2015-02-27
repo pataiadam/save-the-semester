@@ -7,13 +7,21 @@
             <form method="POST" role="form">
 
                 <div class="form-group">
-                    <label>User Id</label>
-                    <input class="form-control" name="userId">
+                    <label>User</label>
+                    <select class="form-control" name="userId">
+                        {{#each users}}
+                            <option value="{{this.id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Circle Id</label>
-                    <input class="form-control" name="circleId">
+                    <label>Circle</label>
+                    <select class="form-control" name="circleId">
+                        {{#each circles}}
+                            <option value="{{this.id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-default">Submit Button</button>

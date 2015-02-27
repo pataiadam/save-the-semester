@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+    tableName: 'circlemember',
     identify: 'CircleMember',
     //autoPK: false,
     attributes: {
@@ -13,10 +14,10 @@ module.exports = {
             type: 'objectid'
         },
         userId: {
-            type: 'string'
+            model: 'User'
         },
         circleId: {
-            type: 'string'
+            model: 'Circle'
         }
     }
 };
