@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-    getAllCoach: function (req, res){
+    getAllCoach: function (req, res) {
         var jsonData = {
             isSuccess: false,
             error: '',
@@ -26,7 +26,7 @@ module.exports = {
         });
     },
 
-    getCoachById: function (req, res){
+    getCoachById: function (req, res) {
         var coachParams = req.body;
         var jsonData = {
             isSuccess: false,
@@ -34,8 +34,8 @@ module.exports = {
             coach: null
         };
 
-        if(coachParams === undefined){
-            var msg ='Missing parameters: coachId undefined.';
+        if (coachParams === undefined) {
+            var msg = 'Missing parameters: coachId undefined.';
             sails.log.error(msg);
             jsonData.error = msg;
             return res.json(jsonData);
@@ -48,8 +48,8 @@ module.exports = {
                 return res.json(jsonData);
             }
 
-            if(coach===undefined){
-                var msg ='Record not find with id: '+ coachId;
+            if (coach === undefined) {
+                var msg = 'Record not find with id: ' + coachId;
                 sails.log.error(msg);
                 jsonData.error = msg;
                 return res.json(jsonData);
@@ -61,7 +61,7 @@ module.exports = {
         });
     },
 
-    createCoach: function (req, res){
+    createCoach: function (req, res) {
         //TODO: user check, just authed user can creat coach
         var coachParams = req.body;
         var jsonData = {
@@ -84,7 +84,7 @@ module.exports = {
         });
     },
 
-    getCoachBySearch: function (req, res){
+    getCoachBySearch: function (req, res) {
         var coachParams = req.body;
         var jsonData = {
             isSuccess: false,
@@ -96,7 +96,7 @@ module.exports = {
         res.json(jsonData);
     },
 
-    updateCoach: function (req, res){
+    updateCoach: function (req, res) {
         var coachParams = req.body;
         var jsonData = {
             isSuccess: false,
@@ -108,7 +108,7 @@ module.exports = {
         res.json(jsonData);
     },
 
-    deleteCoach: function (req, res){
+    deleteCoach: function (req, res) {
         var coachParams = req.body;
         var jsonData = {
             isSuccess: false,

@@ -213,14 +213,14 @@ passport.endpoint = function (req, res) {
 
         if (!!err) {
             sails.log.error(err);
-            if (req.method==='POST') {
+            if (req.method === 'POST') {
                 response.error = err.message;
                 return response
             }
             return res.serverError(err);
         }
 
-        if (req.method==='POST') {
+        if (req.method === 'POST') {
             response.isSuccess = true;
             response.user = req.user;
             res.json(response);

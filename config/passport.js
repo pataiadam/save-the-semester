@@ -51,7 +51,7 @@ module.exports.passport = {
         }
     },
 
-    production:{
+    production: {
         facebook: {
             name: 'Facebook',
             protocol: 'oauth2',
