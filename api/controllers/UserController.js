@@ -10,61 +10,61 @@ module.exports = {
         User.find().exec(function (err, users) {
             if (!!err) {
                 sails.log.error(err);
-                res.flash(err);
+                req.flash(err);
             }
 
             res.view({users: users});
         });
     },
-    show: function (req, res) {
+    show: function(req, res){
         User.findOne({id: req.query.id}).exec(function (err, user) {
-            if (!!err) {
+            if(!!err){
                 sails.log.error(err);
-                res.flash(err);
+                req.flash(err);
             }
             res.view({user: user});
         });
     },
-    create: function (req, res) {
-        if (req.method === 'GET') {
+    create: function(req, res){
+        if(req.method==='GET'){
             res.view();
-        } else {
+        }else{
             User.create(req.body).exec(function (err, user) {
-                if (!!err) {
+                if(!!err){
                     sails.log.error(err);
-                    res.flash(err);
+                    req.flash(err);
                 }
 
-                res.redirect('/user/show?id=' + user.id);
+                res.redirect('/user/show?id='+user.id);
             });
         }
     },
-    update: function (req, res) {
-        if (req.method === 'GET') {
+    update: function(req, res){
+        if(req.method==='GET'){
             User.findOne({id: req.query.id}).exec(function (err, user) {
-                if (!!err) {
+                if(!!err){
                     sails.log.error(err);
-                    res.flash(err);
+                    req.flash(err);
                 }
 
                 res.view({user: user});
             });
-        } else {
+        }else{
             User.update({id: req.body.id}, req.body).exec(function (err) {
-                if (!!err) {
+                if(!!err){
                     sails.log.error(err);
-                    res.flash(err);
+                    req.flash(err);
                 }
 
-                res.redirect('/user/show?id=' + req.body.id);
+                res.redirect('/user/show?id='+req.body.id);
             });
         }
     },
-    delete: function (req, res) {
+    delete: function(req, res){
         User.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err) {
-            if (!!err) {
+            if(!!err){
                 sails.log.error(err);
-                res.flash(err);
+                req.flash(err);
             }
 
             res.redirect('/user');

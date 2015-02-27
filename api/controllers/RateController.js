@@ -8,86 +8,86 @@
 module.exports = {
     index: function (req, res) {
         Rate.find().populateAll().exec(function (err, rates) {
-            if (!!err) {
+            if(!!err){
                 sails.log.error(err);
-                res.flash(err);
+                req.flash(err);
             }
             res.view({rates: rates});
         });
     },
-    show: function (req, res) {
+    show: function(req, res){
         Rate.findOne({id: req.query.id}).populateAll().exec(function (err, rate) {
-            if (!!err) {
+            if(!!err){
                 sails.log.error(err);
-                res.flash(err);
+                req.flash(err);
             }
             res.view({rate: rate});
         });
     },
-    create: function (req, res) {
-        if (req.method === 'GET') {
-            User.find().exec(function (err, users) {
-                if (!!err) {
+    create: function(req, res){
+        if(req.method==='GET'){
+            User.find().exec(function(err, users){
+                if(!!err){
                     sails.log.error(err);
-                    res.flash(err);
+                    req.flash(err);
                 }
-                Circle.find().exec(function (err, circles) {
-                    if (!!err) {
+                Circle.find().exec(function(err, circles){
+                    if(!!err){
                         sails.log.error(err);
-                        res.flash(err);
+                        req.flash(err);
                     }
                     res.view({users: users, circles: circles});
                 });
             });
-        } else {
+        }else{
             Rate.create(req.body).exec(function (err, rate) {
-                if (!!err) {
+                if(!!err){
                     sails.log.error(err);
-                    res.flash(err);
+                    req.flash(err);
                 }
 
-                res.redirect('/rate/show?id=' + rate.id);
+                res.redirect('/rate/show?id='+rate.id);
             });
         }
     },
-    update: function (req, res) {
-        if (req.method === 'GET') {
+    update: function(req, res){
+        if(req.method==='GET'){
             Rate.findOne({id: req.query.id}).exec(function (err, rate) {
-                if (!!err) {
+                if(!!err){
                     sails.log.error(err);
-                    res.flash(err);
+                    req.flash(err);
                 }
-                User.find().exec(function (err, users) {
-                    if (!!err) {
+                User.find().exec(function(err, users){
+                    if(!!err){
                         sails.log.error(err);
-                        res.flash(err);
+                        req.flash(err);
                     }
-                    Circle.find().exec(function (err, circles) {
-                        if (!!err) {
+                    Circle.find().exec(function(err, circles){
+                        if(!!err){
                             sails.log.error(err);
-                            res.flash(err);
+                            req.flash(err);
                         }
                         res.view({rate: rate, users: users, circles: circles});
                     });
                 });
             });
-        } else {
+        }else{
             var id = req.body.id;
             delete req.body.id;
             Rate.update({id: id}, req.body).exec(function (err) {
-                if (!!err) {
+                if(!!err){
                     sails.log.error(err);
-                    res.flash(err);
+                    req.flash(err);
                 }
-                res.redirect('/rate/show?id=' + id);
+                res.redirect('/rate/show?id='+id);
             });
         }
     },
-    delete: function (req, res) {
+    delete: function(req, res){
         Rate.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err) {
-            if (!!err) {
+            if(!!err){
                 sails.log.error(err);
-                res.flash(err);
+                req.flash(err);
             }
 
             res.redirect('/rate');

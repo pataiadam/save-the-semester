@@ -10,7 +10,7 @@ module.exports = {
         Circle.find().exec(function (err, circles) {
             if (!!err) {
                 sails.log.error(err);
-                res.flash(err);
+                req.flash(err);
             }
             res.view({circles: circles});
         });
@@ -19,7 +19,7 @@ module.exports = {
         Circle.findOne({id: req.query.id}).exec(function (err, circle) {
             if (!!err) {
                 sails.log.error(err);
-                res.flash(err);
+                req.flash(err);
             }
 
             res.view({circle: circle});
@@ -32,7 +32,7 @@ module.exports = {
             Circle.create(req.body).exec(function (err, circle) {
                 if (!!err) {
                     sails.log.error(err);
-                    res.flash(err);
+                    req.flash(err);
                 }
 
                 res.redirect('/circle/show?id=' + circle.id);
@@ -44,7 +44,7 @@ module.exports = {
             Circle.findOne({id: req.query.id}).exec(function (err, circle) {
                 if (!!err) {
                     sails.log.error(err);
-                    res.flash(err);
+                    req.flash(err);
                 }
 
                 res.view({circle: circle});
@@ -53,7 +53,7 @@ module.exports = {
             Circle.update({id: req.body.id}, req.body).exec(function (err) {
                 if (!!err) {
                     sails.log.error(err);
-                    res.flash(err);
+                    req.flash(err);
                 }
 
                 res.redirect('/circle/show?id=' + req.body.id);
@@ -64,7 +64,7 @@ module.exports = {
         Circle.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err, circle) {
             if (!!err) {
                 sails.log.error(err);
-                res.flash(err);
+                req.flash(err);
             }
 
             res.redirect('/circle');
