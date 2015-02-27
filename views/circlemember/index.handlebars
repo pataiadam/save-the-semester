@@ -21,10 +21,13 @@
                             <td>{{this.userId}}</td>
                             <td>{{this.circleId}}</td>
                             <td>
-                                <a href="/circlemember/show?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Show</a>
-                                <a href="/circlemember/update?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Update</a>
+                                <a href="/circlemember/show?id={{this.id}}" class="btn btn-xs btn-primary"
+                                   role="button">Show</a>
+                                <a href="/circlemember/update?id={{this.id}}" class="btn btn-xs btn-primary"
+                                   role="button">Update</a>
                                 {{#unless this.deletedAt}}
-                                    <a href="/circlemember/delete?id={{this.id}}" class="btn btn-xs btn-danger" role="button">Delete</a>
+                                    <a href="/circlemember/delete?id={{this.id}}" class="btn btn-xs btn-danger"
+                                       role="button">Delete</a>
                                 {{/unless}}
                             </td>
                         </tr>

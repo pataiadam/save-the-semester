@@ -6,8 +6,8 @@
  */
 
 module.exports = {
-    index: function(req, res) {
-        Coach.find().exec(function(err, coaches) {
+    index: function (req, res) {
+        Coach.find().exec(function (err, coaches) {
             if (!!err) {
                 sails.log.error(err);
                 res.flash(err);
@@ -19,13 +19,13 @@ module.exports = {
         });
     },
 
-    create: function(req, res) {
-        var callback = function(err, coach) {
+    create: function (req, res) {
+        var callback = function (err, coach) {
             if (!!err) {
                 sails.log.error(err);
                 res.flash(err);
             }
-            res.redirect('/coach/show?id='+coach.id);
+            res.redirect('/coach/show?id=' + coach.id);
         }
         if (req.method === 'GET') {
             res.view();
@@ -33,8 +33,8 @@ module.exports = {
             Coach.create(req.body).exec(callback);
         }
     },
-    show: function(req, res){
-        Coach.findOne({id: req.query.id}).exec(function(err, coach){
+    show: function (req, res) {
+        Coach.findOne({id: req.query.id}).exec(function (err, coach) {
             if (!!err) {
                 sails.log.error(err);
                 res.flash(err);
@@ -42,9 +42,9 @@ module.exports = {
             res.view({coach: coach});
         });
     },
-    update: function(req, res){
+    update: function (req, res) {
         if (req.method === 'GET') {
-            Coach.findOne({id: req.query.id}).exec(function(err, coach){
+            Coach.findOne({id: req.query.id}).exec(function (err, coach) {
                 if (!!err) {
                     sails.log.error(err);
                     res.flash(err);
@@ -52,20 +52,20 @@ module.exports = {
                 res.view({coach: coach});
             });
         } else {
-            Coach.update({id: req.body.id}, req.body).exec(function(err){
+            Coach.update({id: req.body.id}, req.body).exec(function (err) {
                 if (!!err) {
                     sails.log.error(err);
                     res.flash(err);
                 }
-                res.redirect('/coach/show?id='+req.body.id);
+                res.redirect('/coach/show?id=' + req.body.id);
             });
         }
     },
-    delete: function(req, res){
+    delete: function (req, res) {
         Coach.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err) {
-            if(!!err){
-              sails.log.error(err);
-              res.flash(err);
+            if (!!err) {
+                sails.log.error(err);
+                res.flash(err);
             }
 
             res.redirect('/coach');

@@ -1,6 +1,6 @@
 var moment = require('moment');
 module.exports = {
-    formatDate: function(date, format) {
+    formatDate: function (date, format) {
         if (date === null || date === undefined) {
             return '';
         }
@@ -10,7 +10,7 @@ module.exports = {
             return moment(date).format(format);
         }
     },
-    isEqual: function(v1, v2, options) {
+    isEqual: function (v1, v2, options) {
         if (v1 === v2) {
             return options.fn(this);
         }

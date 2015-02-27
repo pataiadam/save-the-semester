@@ -6,10 +6,10 @@
  */
 
 module.exports = {
-  index: function(req, res) {
-    res.view({
-        layout: 'login'
-    });
+    index: function (req, res) {
+        res.view({
+            layout: 'login'
+        });
 
-  }
+    }
 };

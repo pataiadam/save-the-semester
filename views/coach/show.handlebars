@@ -1,45 +1,45 @@
 <div class="row">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title"> Coach</h3>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"> Coach</h3>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                    <tbody>
+                    <tr>
+                        <td>Id:</td>
+                        <td>{{coach.id}}</td>
+                    </tr>
+                    <tr>
+                        <td>User:</td>
+                        <td>{{coach.userId}}</td>
+                    </tr>
+                    <tr>
+                        <td>Subject:</td>
+                        <td>{{coach.subject}}</td>
+                    </tr>
+                    <tr>
+                        <td>Description:</td>
+                        <td>{{coach.description}}</td>
+                    </tr>
+                    <tr>
+                        <td>CreatedAt</td>
+                        <td>{{coach.createdAt}}</td>
+                    </tr>
+                    <tr>
+                        <td>UpdatedAt</td>
+                        <td>{{coach.updatedAt}}</td>
+                    </tr>
+                    <tr>
+                        <td>DeletedAt</td>
+                        <td>{{coach.deletedAt}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <a href="/coach/update?id={{coach.id}}" class="btn btn-primary">Update</a>
+        <a href="/coach/delete?id={{coach.id}}" class="btn btn-primary">Delete</a>
     </div>
-    <div class="panel-body">
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover table-striped">
-          <tbody>
-            <tr>
-              <td>Id:</td>
-              <td>{{coach.id}}</td>
-            </tr>
-            <tr>
-              <td>User:</td>
-              <td>{{coach.userId}}</td>
-            </tr>
-            <tr>
-              <td>Subject:</td>
-              <td>{{coach.subject}}</td>
-            </tr>
-            <tr>
-              <td>Description:</td>
-              <td>{{coach.description}}</td>
-            </tr>
-            <tr>
-              <td>CreatedAt</td>
-              <td>{{coach.createdAt}}</td>
-            </tr>
-            <tr>
-              <td>UpdatedAt</td>
-              <td>{{coach.updatedAt}}</td>
-            </tr>
-            <tr>
-              <td>DeletedAt</td>
-              <td>{{coach.deletedAt}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <a href="/coach/update?id={{coach.id}}" class="btn btn-primary">Update</a>
-    <a href="/coach/delete?id={{coach.id}}" class="btn btn-primary">Delete</a>
-  </div>
 </div>
