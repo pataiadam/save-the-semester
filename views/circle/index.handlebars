@@ -21,7 +21,8 @@
                             <td>{{this.name}}</td>
                             <td>{{this.creatorId}}</td>
                             <td>
-                                <a href="/circle/show?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Show</a>
+                                <a href="/circle/show?id={{this.id}}" class="btn btn-xs btn-primary"
+                                   role="button">Show</a>
                                 <a href="/circle/update?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Update</a>
                                 {{#unless this.deletedAt}}
                                     <a href="/circle/delete?id={{this.id}}" class="btn btn-xs btn-danger" role="button">Delete</a>
