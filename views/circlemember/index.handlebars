@@ -9,17 +9,17 @@
                     <thead>
                     <tr>
                         <th>id</th>
-                        <th>userId</th>
-                        <th>circleId</th>
-                        <th>actions</th>
+                        <th>User</th>
+                        <th>Circle</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {{#each circleMembers}}
                         <tr>
                             <td>{{this.id}}</td>
-                            <td>{{this.userId}}</td>
-                            <td>{{this.circleId}}</td>
+                            <td>{{this.userId.name}}</td>
+                            <td>{{this.circleId.name}}</td>
                             <td>
                                 <a href="/circlemember/show?id={{this.id}}" class="btn btn-xs btn-primary"
                                    role="button">Show</a>
