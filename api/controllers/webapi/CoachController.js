@@ -85,15 +85,33 @@ module.exports = {
     },
 
     getCoachBySearch: function (req, res) {
-        var coachParams = req.body;
+        var searchParams = req.body;
         var jsonData = {
             isSuccess: false,
             error: '',
             coaches: []
         };
 
-        //TODO: create logic
-        res.json(jsonData);
+        if(searchParams.hasOwnProperty('search')){
+            Coach.find({or: [{
+                            subject: {
+                                'like': '%' + searchParams.search + '%'}
+                            }]}).exec(function(err, results){
+                if (!!err) {
+                    sails.log.error(err);
+                    jsonData.error = err.details;
+                    return res.json(jsonData);
+                }
+                jsonData.isSuccess = true;
+                jsonData.coaches = results;
+                res.json(jsonData);
+            });
+        }else{
+            var msg = 'Missing parameters: search undefined.';
+            sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
     },
 
     updateCoach: function (req, res) {
