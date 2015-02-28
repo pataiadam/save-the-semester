@@ -13,7 +13,7 @@ module.exports = {
             coaches: []
         };
 
-        Coach.find().exec(function (err, coaches) {
+        Coach.find({deletedAt: null}).exec(function (err, coaches) {
             if (!!err) {
                 sails.log.error(err);
                 jsonData.error = err.details;
@@ -41,7 +41,7 @@ module.exports = {
             return res.json(jsonData);
         }
 
-        Coach.findOne({id: coachParams.id}).exec(function (err, coach) {
+        Coach.findOne({id: coachParams.id, deletedAt: null}).exec(function (err, coach) {
             if (!!err) {
                 sails.log.error(err);
                 jsonData.error = err.details;
@@ -111,7 +111,7 @@ module.exports = {
             return res.json(jsonData);
         }
 
-        Coach.update({id: coachParams.id}, coachParams).exec(function (err, coaches) {
+        Coach.update({id: coachParams.id, deletedAt: null}, coachParams).exec(function (err, coaches) {
             if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
@@ -146,7 +146,7 @@ module.exports = {
             return res.json(jsonData);
         }
 
-        Coach.update({id: coachParams.id}, {deletedAt: new Date()}).exec(function (err, coaches) {
+        Coach.update({id: coachParams.id, deletedAt: null}, {deletedAt: new Date()}).exec(function (err, coaches) {
             if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
