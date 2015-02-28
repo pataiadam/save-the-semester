@@ -111,15 +111,6 @@ module.exports = {
             return res.json(jsonData);
         }
 
-   /*     sails.log.debug(coachParams);
-        for(key in coachParams){
-            if(!Coach.definition.hasOwnProperty(key)){
-                delete coachParams[key];
-            }
-        }
-*/
-
-
         Coach.update({id: coachParams.id}, coachParams).exec(function (err, coaches) {
             if (!!err) {
                 sails.log.error(err);
@@ -148,7 +139,29 @@ module.exports = {
             coach: null
         };
 
-        //TODO: create logic
-        res.json(jsonData);
+        if (!coachParams.hasOwnProperty('id')) {
+            var msg = 'Missing parameters: coachId undefined.';
+            sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+
+        Coach.update({id: coachParams.id}, {deletedAt: new Date()}).exec(function (err, coaches) {
+            if (!!err) {
+                sails.log.error(err);
+                req.flash(err);
+            }
+
+            if (coaches === undefined || coaches.length === 0) {
+                var msg = 'Record not find with id: ' + coachParams.id;
+                sails.log.error(msg);
+                jsonData.error = msg;
+                return res.json(jsonData);
+            }
+
+            jsonData.isSuccess = true;
+            jsonData.coach = coaches[0];
+            res.json(jsonData);
+        });
     }
 };
