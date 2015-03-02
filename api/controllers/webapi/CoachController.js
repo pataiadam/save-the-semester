@@ -49,7 +49,7 @@ module.exports = {
             }
 
             if (coach === undefined) {
-                var msg = 'Record not find with id: ' + coachId;
+                var msg = 'Record not find with id: ' + coachParams.id;
                 sails.log.error(msg);
                 jsonData.error = msg;
                 return res.json(jsonData);
