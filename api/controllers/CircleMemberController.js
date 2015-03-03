@@ -10,7 +10,8 @@ module.exports = {
         CircleMember.find().populateAll().exec(function (err, circleMembers) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/circlemember');
             }
 
             res.view({circleMembers: circleMembers});
@@ -20,7 +21,8 @@ module.exports = {
         CircleMember.findOne({id: req.query.id}).populateAll().exec(function (err, circleMember) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/circlemember');
             }
 
             res.view({circleMember: circleMember});
@@ -31,13 +33,15 @@ module.exports = {
             User.find().exec(function (err, users) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/circlemember');
                 }
 
                 Circle.find().exec(function (err, circles) {
                     if (!!err) {
                         sails.log.error(err);
-                        req.flash(err);
+                        req.flash('error', err);
+                        return res.redirect('/circlemember');
                     }
                     res.view({circles: circles, users: users});
                 });
@@ -46,7 +50,8 @@ module.exports = {
             CircleMember.create(req.body).exec(function (err, circleMember) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/circlemember');
                 }
 
                 res.redirect('/circlemember/show?id=' + circleMember.id);
@@ -58,7 +63,8 @@ module.exports = {
             CircleMember.findOne({id: req.query.id}).populateAll().exec(function (err, circleMember) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/circlemember');
                 }
 
                 User.find().exec(function (err, users) {
@@ -80,7 +86,8 @@ module.exports = {
             CircleMember.update({id: req.body.id}, req.body).exec(function (err) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/circlemember');
                 }
 
                 res.redirect('/circlemember/show?id=' + req.body.id);
@@ -91,7 +98,8 @@ module.exports = {
         CircleMember.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/circlemember');
             }
             
             res.redirect('/circlemember');
