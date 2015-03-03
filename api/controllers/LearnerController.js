@@ -10,7 +10,8 @@ module.exports = {
         Learner.find().exec(function (err, learners) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/learner');
             }
 
             res.view({learners: learners});
@@ -20,7 +21,8 @@ module.exports = {
         var callback = function (err, learner) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/learner');
             }
             res.redirect('/learner/show?id=' + learner.id);
         };
@@ -34,7 +36,8 @@ module.exports = {
         Learner.findOne({id: req.query.id}).exec(function (err, learner) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/learner');
             }
             res.view({learner: learner});
         });
@@ -44,7 +47,8 @@ module.exports = {
             Learner.findOne({id: req.query.id}).exec(function (err, learner) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/learner');
                 }
                 res.view({learner: learner});
             });
@@ -52,7 +56,8 @@ module.exports = {
             Learner.update({id: req.body.id}, req.body).exec(function (err) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/learner');
                 }
                 res.redirect('/learner/show?id=' + req.body.id);
             });
@@ -62,7 +67,8 @@ module.exports = {
         Learner.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/learner');
             }
 
             res.redirect('/learner');
