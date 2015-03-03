@@ -13,7 +13,7 @@ module.exports = {
             coaches: []
         };
 
-        Coach.find().exec(function (err, coaches) {
+        Coach.find({deletedAt: null}).exec(function (err, coaches) {
             if (!!err) {
                 sails.log.error(err);
                 jsonData.error = err.details;
@@ -34,14 +34,14 @@ module.exports = {
             coach: null
         };
 
-        if (coachParams === undefined) {
+        if (!coachParams.hasOwnProperty('id')) {
             var msg = 'Missing parameters: coachId undefined.';
             sails.log.error(msg);
             jsonData.error = msg;
             return res.json(jsonData);
         }
 
-        Coach.findOne({id: coachParams.id}).exec(function (err, coach) {
+        Coach.findOne({id: coachParams.id, deletedAt: null}).exec(function (err, coach) {
             if (!!err) {
                 sails.log.error(err);
                 jsonData.error = err.details;
@@ -49,7 +49,7 @@ module.exports = {
             }
 
             if (coach === undefined) {
-                var msg = 'Record not find with id: ' + coachId;
+                var msg = 'Record not find with id: ' + coachParams.id;
                 sails.log.error(msg);
                 jsonData.error = msg;
                 return res.json(jsonData);
@@ -85,15 +85,33 @@ module.exports = {
     },
 
     getCoachBySearch: function (req, res) {
-        var coachParams = req.body;
+        var searchParams = req.body;
         var jsonData = {
             isSuccess: false,
             error: '',
             coaches: []
         };
 
-        //TODO: create logic
-        res.json(jsonData);
+        if(searchParams.hasOwnProperty('search')){
+            Coach.find({or: [{
+                            subject: {
+                                'like': '%' + searchParams.search + '%'}
+                            }]}).exec(function(err, results){
+                if (!!err) {
+                    sails.log.error(err);
+                    jsonData.error = err.details;
+                    return res.json(jsonData);
+                }
+                jsonData.isSuccess = true;
+                jsonData.coaches = results;
+                res.json(jsonData);
+            });
+        }else{
+            var msg = 'Missing parameters: search undefined.';
+            sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
     },
 
     updateCoach: function (req, res) {
@@ -104,8 +122,31 @@ module.exports = {
             coach: null
         };
 
-        //TODO: create logic
-        res.json(jsonData);
+        if (!coachParams.hasOwnProperty('id')) {
+            var msg = 'Missing parameters: coachId undefined.';
+            sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+
+        Coach.update({id: coachParams.id, deletedAt: null}, coachParams).exec(function (err, coaches) {
+            if (!!err) {
+                sails.log.error(err);
+                req.flash(err);
+            }
+
+            if (coaches === undefined || coaches.length === 0) {
+                var msg = 'Record not find with id: ' + coachParams.id;
+                sails.log.error(msg);
+                jsonData.error = msg;
+                return res.json(jsonData);
+            }
+
+            jsonData.isSuccess = true;
+            jsonData.coach = coaches[0];
+            res.json(jsonData);
+        });
+
     },
 
     deleteCoach: function (req, res) {
@@ -116,7 +157,29 @@ module.exports = {
             coach: null
         };
 
-        //TODO: create logic
-        res.json(jsonData);
+        if (!coachParams.hasOwnProperty('id')) {
+            var msg = 'Missing parameters: coachId undefined.';
+            sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+
+        Coach.update({id: coachParams.id, deletedAt: null}, {deletedAt: new Date()}).exec(function (err, coaches) {
+            if (!!err) {
+                sails.log.error(err);
+                req.flash(err);
+            }
+
+            if (coaches === undefined || coaches.length === 0) {
+                var msg = 'Record not find with id: ' + coachParams.id;
+                sails.log.error(msg);
+                jsonData.error = msg;
+                return res.json(jsonData);
+            }
+
+            jsonData.isSuccess = true;
+            jsonData.coach = coaches[0];
+            res.json(jsonData);
+        });
     }
 };

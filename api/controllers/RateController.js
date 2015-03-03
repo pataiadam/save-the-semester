@@ -73,7 +73,7 @@ module.exports = {
             });
         } else {
             var id = req.body.id;
-            delete req.body.id;
+            req.body.id = null;
             Rate.update({id: id}, req.body).exec(function (err) {
                 if (!!err) {
                     sails.log.error(err);

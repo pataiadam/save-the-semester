@@ -21,5 +21,13 @@ module.exports = {
         description: {
             type: 'string'
         }
+    },
+    beforeValidate: function(value, next){
+        for(key in value){
+            if(!Coach.definition.hasOwnProperty(key)){
+                delete value[key];
+            }
+        }
+        next();
     }
 };
