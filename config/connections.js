@@ -36,6 +36,15 @@ module.exports.connections = {
         // user: 'username',
         // password: 'password',
         database: 'savethesemester'
+    },
+
+    mongodb_tomi: {
+        adapter: 'sails-mongo',
+        host: '192.168.0.199',
+        port: 27017,
+        // user: 'username',
+        // password: 'password',
+        database: 'savethesemester'
     }
 
     /***************************************************************************
