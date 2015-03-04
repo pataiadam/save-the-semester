@@ -18,8 +18,8 @@
                     {{#each learners}}
                         <tr>
                             <td>{{this.id}}</td>
-                            <td>{{this.userId}}</td>
-                            <td>{{this.coachId}}</td>
+                            <td>{{this.userId.name}}</td>
+                            <td>{{this.coachId.subject}}</td>
                             <td>
                                 <a href="/learner/show?id={{this.id}}" class="btn btn-xs btn-primary"
                                    role="button">Show</a>
