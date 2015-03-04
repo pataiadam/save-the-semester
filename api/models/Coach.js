@@ -6,13 +6,15 @@
  */
 
 module.exports = {
+    tableName: 'coach',
     identify: 'Coach',
     attributes: {
         id: {
+            primaryKey: true,
             type: 'objectid'
         },
         userId: {
-            type: 'string'
+            model: 'User'
         },
         subject: {
             type: 'string',
