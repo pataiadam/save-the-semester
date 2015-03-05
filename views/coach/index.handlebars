@@ -24,9 +24,9 @@
                                 <a href="/coach/show?id={{this.id}}" class="btn btn-xs btn-primary"
                                    role="button">Show</a>
                                 <a href="/coach/update?id={{this.id}}" class="btn btn-xs btn-primary" role="button">Update</a>
-                                <!--{{#unless this.deletedAt}}
+                                {{#unless this.deletedAt}}
                                     <a href="/coach/delete?id={{this.id}}" class="btn btn-xs btn-danger" role="button">Delete</a>
-                                {{/unless}}-->
+                                {{/unless}}
                             </td>
                         </tr>
                     {{/each}}
