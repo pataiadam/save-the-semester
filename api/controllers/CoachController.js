@@ -10,7 +10,8 @@ module.exports = {
         Coach.find().exec(function (err, coaches) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/coach');
             }
 
             res.view({
@@ -41,7 +42,8 @@ module.exports = {
         Coach.findOne({id: req.query.id}).populateAll().exec(function (err, coach) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/coach');
             }
 
             res.view({coach: coach});
@@ -52,7 +54,8 @@ module.exports = {
             Coach.findOne({id: req.query.id}).exec(function (err, coach) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/coach');
                 }
                 User.find().exec(function (err, users) {
                     if (!!err) {
@@ -68,7 +71,8 @@ module.exports = {
             Coach.update({id: id}, req.body).exec(function (err) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/coach');
                 }
                 res.redirect('/coach/show?id=' + id);
             });
@@ -78,7 +82,8 @@ module.exports = {
         Coach.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/coach');
             }
 
             res.redirect('/coach');

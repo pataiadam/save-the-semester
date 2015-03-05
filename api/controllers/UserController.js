@@ -10,7 +10,8 @@ module.exports = {
         User.find().exec(function (err, users) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/user');
             }
 
             res.view({users: users});
@@ -20,8 +21,10 @@ module.exports = {
         User.findOne({id: req.query.id}).exec(function (err, user) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/user');
             }
+
             res.view({user: user});
         });
     },
@@ -32,7 +35,8 @@ module.exports = {
             User.create(req.body).exec(function (err, user) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/user');
                 }
 
                 res.redirect('/user/show?id=' + user.id);
@@ -44,7 +48,8 @@ module.exports = {
             User.findOne({id: req.query.id}).exec(function (err, user) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/user');
                 }
 
                 res.view({user: user});
@@ -55,7 +60,8 @@ module.exports = {
             User.update({id: id}, req.body).exec(function (err) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/user');
                 }
 
                 res.redirect('/user/show?id=' + id);
@@ -66,7 +72,8 @@ module.exports = {
         User.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/user');
             }
 
             res.redirect('/user');

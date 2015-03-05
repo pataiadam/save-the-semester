@@ -10,7 +10,8 @@ module.exports = {
         Circle.find().populateAll().exec(function (err, circles) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/circle');
             }
             res.view({circles: circles});
         });
@@ -19,7 +20,8 @@ module.exports = {
         Circle.findOne({id: req.query.id}).populateAll().exec(function (err, circle) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/circle');
             }
 
             res.view({circle: circle});
@@ -30,7 +32,8 @@ module.exports = {
             User.find().exec(function (err, users) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/circle');
                 }
 
                 res.view({users: users});
@@ -39,7 +42,8 @@ module.exports = {
             Circle.create(req.body).exec(function (err, circle) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/circle');
                 }
 
                 res.redirect('/circle/show?id=' + circle.id);
@@ -51,12 +55,14 @@ module.exports = {
             Circle.findOne({id: req.query.id}).exec(function (err, circle) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/circle');
                 }
                 User.find().exec(function (err, users) {
                     if (!!err) {
                         sails.log.error(err);
-                        req.flash(err);
+                        req.flash('error', err);
+                        return res.redirect('/circle');
                     }
                     res.view({circle: circle, users: users});
                 });
@@ -67,7 +73,8 @@ module.exports = {
             Circle.update({id: id}, req.body).exec(function (err) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/circle');
                 }
 
                 res.redirect('/circle/show?id=' + id);
@@ -78,7 +85,8 @@ module.exports = {
         Circle.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err, circle) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/circle');
             }
 
             res.redirect('/circle');

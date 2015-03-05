@@ -10,7 +10,8 @@ module.exports = {
         Learner.find().populateAll().exec(function (err, learners) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/learner');
             }
 
             res.view({learners: learners});
@@ -46,7 +47,8 @@ module.exports = {
         Learner.findOne({id: req.query.id}).populateAll().exec(function (err, learner) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/learner');
             }
 
             res.view({learner: learner});
@@ -57,7 +59,8 @@ module.exports = {
             Learner.findOne({id: req.query.id}).exec(function (err, learner) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/learner');
                 }
 
                 User.find().exec(function (err, users) {
@@ -80,7 +83,8 @@ module.exports = {
             Learner.update({id: req.body.id}, req.body).exec(function (err) {
                 if (!!err) {
                     sails.log.error(err);
-                    req.flash(err);
+                    req.flash('error', err);
+                    return res.redirect('/learner');
                 }
                 res.redirect('/learner/show?id=' + req.body.id);
             });
@@ -90,7 +94,8 @@ module.exports = {
         Learner.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err) {
             if (!!err) {
                 sails.log.error(err);
-                req.flash(err);
+                req.flash('error', err);
+                return res.redirect('/learner');
             }
 
             res.redirect('/learner');
