@@ -10,6 +10,7 @@ module.exports = {
     identify: 'Learner',
     attributes: {
         id: {
+            primaryKey: true,
             type: 'objectid'
         },
         userId: {
