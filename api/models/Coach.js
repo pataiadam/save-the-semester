@@ -22,6 +22,9 @@ module.exports = {
         },
         description: {
             type: 'string'
+        },
+        deletedAt: {
+            type: 'datetime'
         }
     },
     beforeValidate: function(value, next){
