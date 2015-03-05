@@ -78,7 +78,7 @@ module.exports = {
       var id = req.query.id;
       req.query.id = null;
 
-        Coach.find({id: id}, {deletedAt: new Date()}).exec(function (err) {
+        Coach.update({id: id}, {deletedAt: new Date()}).exec(function (err) {
             sails.log(coach);
             if (!!err) {
                 sails.log.error(err);
