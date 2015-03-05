@@ -7,7 +7,7 @@
 
 module.exports = {
     index: function (req, res) {
-        Learner.find().exec(function (err, learners) {
+        Learner.find().populateAll().exec(function (err, learners) {
             if (!!err) {
                 sails.log.error(err);
                 req.flash('error', err);
@@ -18,27 +18,39 @@ module.exports = {
         });
     },
     create: function (req, res) {
-        var callback = function (err, learner) {
-            if (!!err) {
-                sails.log.error(err);
-                req.flash('error', err);
-                return res.redirect('/learner');
-            }
-            res.redirect('/learner/show?id=' + learner.id);
-        };
         if (req.method === 'GET') {
-            res.view();
+            User.find().exec(function (err, users) {
+                if (!!err) {
+                    sails.log.error(err);
+                    req.flash(err);
+              }
+
+              Coach.find().exec(function (err, coaches) {
+                  if (!!err) {
+                      sails.log.error(err);
+                      req.flash(err);
+                    }
+                    res.view({coaches: coaches, users: users});
+              });
+          });
         } else {
-            Learner.create(req.body).exec(callback);
+            Learner.create(req.body).exec(function (err, learner) {
+                if (!!err) {
+                    sails.log.error(err);
+                    req.flash(err);
+                }
+                res.redirect('/learner/show?id=' + learner.id);
+            });
         }
     },
     show: function (req, res) {
-        Learner.findOne({id: req.query.id}).exec(function (err, learner) {
+        Learner.findOne({id: req.query.id}).populateAll().exec(function (err, learner) {
             if (!!err) {
                 sails.log.error(err);
                 req.flash('error', err);
                 return res.redirect('/learner');
             }
+
             res.view({learner: learner});
         });
     },
@@ -50,7 +62,22 @@ module.exports = {
                     req.flash('error', err);
                     return res.redirect('/learner');
                 }
-                res.view({learner: learner});
+
+                User.find().exec(function (err, users) {
+                    if (!!err) {
+                        sails.log.error(err);
+                        req.flash(err);
+                  }
+
+                Coach.find().exec(function (err, coaches) {
+                    if (!!err) {
+                        sails.log.error(err);
+                        req.flash(err);
+                      }
+
+                res.view({learner: learner, users: users, coaches: coaches});
+                   });
+                });
             });
         } else {
             Learner.update({id: req.body.id}, req.body).exec(function (err) {

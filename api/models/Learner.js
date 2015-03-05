@@ -6,16 +6,18 @@
  */
 
 module.exports = {
+    tableName: 'learner',
     identify: 'Learner',
     attributes: {
         id: {
+            primaryKey: true,
             type: 'objectid'
         },
         userId: {
-            type: 'string'
+            model: 'User'
         },
         coachId: {
-            type: 'string'
+            model: 'Coach'
         }
     }
 };

@@ -6,13 +6,15 @@
  */
 
 module.exports = {
+    tableName: 'coach',
     identify: 'Coach',
     attributes: {
         id: {
+            primaryKey: true,
             type: 'objectid'
         },
         userId: {
-            type: 'string'
+            model: 'User'
         },
         subject: {
             type: 'string',
@@ -20,6 +22,9 @@ module.exports = {
         },
         description: {
             type: 'string'
+        },
+        deletedAt: {
+            type: 'datetime'
         }
     },
     beforeValidate: function(value, next){

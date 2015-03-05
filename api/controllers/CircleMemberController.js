@@ -72,7 +72,7 @@ module.exports = {
                         sails.log.error(err);
                         req.flash(err);
                     }
-                    
+
                     Circle.find().exec(function (err, circles) {
                         if (!!err) {
                             sails.log.error(err);
@@ -101,9 +101,8 @@ module.exports = {
                 req.flash('error', err);
                 return res.redirect('/circlemember');
             }
-            
+
             res.redirect('/circlemember');
         });
     }
 };
-

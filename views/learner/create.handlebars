@@ -8,12 +8,20 @@
 
                 <div class="form-group">
                     <label>User</label>
-                    <input class="form-control" name="userId">
+                    <select class="form-control" name="userId">
+                        {{#each users}}
+                            <option value="{{this.id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label>Coach</label>
-                    <input class="form-control" name="coachId">
+                    <select class="form-control" name="coachId">
+                        {{#each coaches}}
+                            <option value="{{this.id}}">{{this.subject}}</option>
+                        {{/each}}
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-default">Submit Button</button>
