@@ -75,11 +75,7 @@ module.exports = {
         }
     },
     delete: function (req, res) {
-      var id = req.query.id;
-      req.query.id = null;
-
-        Coach.update({id: id}, {deletedAt: new Date()}).exec(function (err) {
-            sails.log(coach);
+        Coach.update({id: req.query.id}, {deletedAt: new Date()}).exec(function (err) {
             if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
