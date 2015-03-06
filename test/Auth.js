@@ -10,7 +10,7 @@ describe('Auth', function(){
             //Set params
             var api = 'auth/facebook-token/token';
             var params = {
-                access_token: 'CAAT8qWdR57cBAD9k3K4Y87RO6TZC1WiyHlxrFdgzm0Ekk09IOh3xBYZA26fkSsS5JKtbg2STZAwWRiYb4hhH3NUP3zbGmbZCGcLqw7M2I3y2rZCppp9WTPZBIVmyLu1Qh36d65ZAhD3MB1FdFxpUSRAxV4JEZC7qXUk5X50HFY6Lf52ylHxjbl9GaDCPwHh9Fh1QVJO14jmSnaejGhghOrihTMIoblDYApcZD'
+                access_token: 'thisIsARandomAccessToken'
             };
 
             //Send request to server
