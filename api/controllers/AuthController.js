@@ -101,35 +101,7 @@ var AuthController = {
      * @param {Object} res
      */
     provider: function (req, res) {
-        if(req.hasOwnProperty('body') && req.body.hasOwnProperty('access_token')){
-            if (req.body.access_token === 'thisIsARandomAccessToken') {
-                var response = {
-                    isSuccess: false,
-                    error: '',
-                    user: null
-                };
-
-                User.findOne({name: 'SBS Admin'}).exec(function (err, user) {
-                    if (!!err) {
-                        sails.log.debug(err);
-                        response.error = err.message;
-                        return res.json(response);
-                    }
-
-                    req.login(user, function (err) {
-                        if (!!err) {
-                            sails.log.debug(err);
-                            response.error = err.message;
-                            return res.json(response);
-                        }
-
-                        response.isSuccess = true;
-                        response.user = req.user;
-                        returnres.json(response);
-                    });
-                });
-            }
-        }
+        
         passport.endpoint(req, res);
     },
 
