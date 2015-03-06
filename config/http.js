@@ -22,6 +22,8 @@ module.exports.http = {
      ****************************************************************************/
 
     middleware: {
+        passportInit: require('passport').initialize(),
+        passportSession: require('passport').session(),
 
         /***************************************************************************
          *                                                                          *
@@ -31,10 +33,13 @@ module.exports.http = {
          ***************************************************************************/
 
         order: [
-            //'startRequestTimer',
+            'startRequestTimer',
             'cookieParser',
-            'passport',
+            'www',
             'session',
+            'passport',
+            'passportInit',
+            'passportSession',
             'requestLogger',
             'bodyParser',
             'handleBodyParserError',
@@ -43,7 +48,6 @@ module.exports.http = {
             'poweredBy',
             '$custom',
             'router',
-            'www',
             'favicon',
             '404',
             '500'
@@ -59,7 +63,7 @@ module.exports.http = {
             if (req.url.indexOf('/webapi') === 0)
                 console.log("Requested :: ", req.method, req.url);
             return next();
-        },
+        }
 
 
         /***************************************************************************
