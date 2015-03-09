@@ -25,6 +25,9 @@ module.exports = {
         passports: {
             collection: 'Passport',
             via: 'user'
+        },
+        deletedAt: {
+            type: 'datetime'
         }
     }
 };

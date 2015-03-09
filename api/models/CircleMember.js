@@ -18,7 +18,9 @@ module.exports = {
         },
         circleId: {
             model: 'Circle'
+        },
+        deletedAt: {
+            type: 'datetime'
         }
     }
 };
-
