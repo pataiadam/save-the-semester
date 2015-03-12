@@ -1,7 +1,7 @@
 box: wercker/nodejs
 # Build definition
 services:
-- wercker/mongodb@1.0.1
+- wercker/mongodb
 build:
   # The steps that will be executed on build
   steps:
