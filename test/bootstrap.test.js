@@ -7,11 +7,11 @@ before(function (done) {
     // Lift Sails with test database
     Sails.lift({
         log: {
-            level: 'silent'
+            level: 'silent' //info or silent
         },
         models: {
             connection: 'mongodb_test',
-            migrate: 'safe'
+            migrate: 'drop'
         }
     }, function (err, sails) {
         if (err)

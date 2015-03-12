@@ -22,6 +22,7 @@ module.exports = {
 
             jsonData.isSuccess = true;
             jsonData.coaches = coaches;
+            sails.log.debug(coaches);
             res.json(jsonData);
         });
     },
@@ -62,14 +63,13 @@ module.exports = {
     },
 
     createCoach: function (req, res) {
-        //TODO: user check, just authed user can creat coach
         var coachParams = req.body;
+        _.extend(coachParams, {userId: req.user.id});
         var jsonData = {
             isSuccess: false,
             error: '',
             coach: null
         };
-
 
         Coach.create(coachParams).exec(function (err, coach) {
             if (!!err) {
