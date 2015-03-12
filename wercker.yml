@@ -17,4 +17,4 @@ build:
         code: |
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
-          $(DATABASE_HOST=$WERCKER_MONGODB_HOST npm test)
+          $(npm test)

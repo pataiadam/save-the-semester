@@ -74,5 +74,29 @@ module.exports.passport = {
                 scope: 'public_profile,email'
             }
         }
+    },
+    test: {
+        facebook: {
+            name: 'Facebook',
+            protocol: 'oauth2',
+            strategy: require('passport-facebook').Strategy,
+            options: {
+                clientID: '1403704419936183',
+                clientSecret: '44c8391d322576e7ac28979eca2aaa40',
+                callbackURL: 'http://localhost:1337/auth/facebook/callback',
+                scope: 'public_profile,email'
+            }
+        },
+
+        'facebook-token': {
+            name: 'FacebookToken',
+            protocol: 'oauth2',
+            strategy: require('passport-facebook-token').Strategy,
+            options: {
+                clientID: '1403704419936183',
+                clientSecret: '44c8391d322576e7ac28979eca2aaa40',
+                scope: 'public_profile,email'
+            }
+        }
     }
 };
