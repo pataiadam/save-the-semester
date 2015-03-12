@@ -24,7 +24,7 @@ before(function (done) {
                 console.log(err);
 
             done(null, sails);
-        }, false);
+        }, true);
     });
 });
 
