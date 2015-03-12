@@ -1,0 +1,10 @@
+[
+  {
+    "email" : "test@test.com",
+    "name" : "SBS Admin"
+  },
+  {
+    "email" : "tester@test.com",
+    "name" : "SBS Test User"
+  }
+]

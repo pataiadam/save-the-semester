@@ -109,7 +109,7 @@ var AuthController = {
                     user: null
                 };
 
-                User.findOne({name: 'SBS Admin'}).exec(function (err, user) {
+                User.findOrCreate({name: 'SBS Admin'}, {name: 'SBS Admin'}).exec(function (err, user) {
                     if (!!err) {
                         sails.log.debug(err);
                         response.error = err.message;
@@ -125,7 +125,7 @@ var AuthController = {
 
                         response.isSuccess = true;
                         response.user = req.user;
-                        returnres.json(response);
+                        return res.json(response);
                     });
                 });
             }

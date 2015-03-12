@@ -381,6 +381,7 @@ passport.disconnect = function (req, res, next) {
 };
 
 passport.serializeUser(function (user, next) {
+    sails.log.debug(user);
     next(null, user.id);
 });
 
