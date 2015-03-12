@@ -300,55 +300,40 @@ passport.callback = function (req, res, next) {
  *
  */
 passport.loadStrategies = function () {
-    var self = this
-        , strategies = sails.config.passport[sails.config.environment];
+    var self = this,
+        strategies = sails.config.passport[sails.config.environment];
 
     Object.keys(strategies).forEach(function (key) {
-        var options = {passReqToCallback: true}, Strategy;
+        var options = {passReqToCallback: true},
+            Strategy;
 
-        if (key === 'local') {
-            // Since we need to allow users to login using both usernames as well as
-            // emails, we'll set the username field to something more generic.
-            _.extend(options, {usernameField: 'identifier'});
+        var protocol = strategies[key].protocol,
+            callback = strategies[key].callback;
 
-            // Only load the local strategy if it's enabled in the config
-            if (strategies.local) {
-                Strategy = strategies[key].strategy;
-
-                self.use(new Strategy(options, self.protocols.local.login));
-            }
-        } else {
-            var protocol = strategies[key].protocol
-                , callback = strategies[key].callback;
-
-            if (!callback) {
-                callback = path.join('auth', key, 'callback');
-            }
-
-            Strategy = strategies[key].strategy;
-
-            var baseUrl = sails.getBaseurl();
-
-            switch (protocol) {
-                case 'oauth':
-                case 'oauth2':
-                    options.callbackURL = url.resolve(baseUrl, callback);
-                    break;
-
-                case 'openid':
-                    options.returnURL = url.resolve(baseUrl, callback);
-                    options.realm = baseUrl;
-                    options.profile = true;
-                    break;
-            }
-
-            // Merge the default options with any options defined in the config. All
-            // defaults can be overriden, but I don't see a reason why you'd want to
-            // do that.
-            _.extend(options, strategies[key].options);
-
-            self.use(new Strategy(options, self.protocols[protocol]));
+        if (!callback) {
+            callback = path.join('auth', key, 'callback');
         }
+
+        Strategy = strategies[key].strategy;
+
+        var baseUrl = sails.getBaseurl();
+
+        switch (protocol) {
+            case 'oauth':
+            case 'oauth2':
+                options.callbackURL = url.resolve(baseUrl, callback);
+                break;
+
+            case 'openid':
+                options.returnURL = url.resolve(baseUrl, callback);
+                options.realm = baseUrl;
+                options.profile = true;
+                break;
+        }
+
+        _.extend(options, strategies[key].options);
+        self.use(new Strategy(options, self.protocols[protocol]));
+
     });
 };
 
@@ -381,6 +366,7 @@ passport.disconnect = function (req, res, next) {
 };
 
 passport.serializeUser(function (user, next) {
+    sails.log.debug(user);
     next(null, user.id);
 });
 

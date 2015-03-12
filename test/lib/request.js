@@ -14,7 +14,7 @@ module.exports = {
             jar:     true
         }, function(error, response, body){
             if(!!error){
-                console.log("ERROR (in test/lib/request.js): ");
+                console.log("ERROR (in " + __filename);
                 console.log(error);
                 console.log("BODY: ");
                 console.log(body);

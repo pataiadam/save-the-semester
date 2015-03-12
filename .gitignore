@@ -29,3 +29,4 @@ node_modules
 .tmp
 .idea
 TODO
+test-reports.xml

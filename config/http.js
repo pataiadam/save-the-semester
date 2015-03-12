@@ -61,7 +61,7 @@ module.exports.http = {
 
         requestLogger: function (req, res, next) {
             if (req.url.indexOf('/webapi') === 0)
-                console.log("Requested :: ", req.method, req.url);
+                sails.log.info("Requested :: ", req.method, req.url);
             return next();
         }
 
