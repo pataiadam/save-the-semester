@@ -22,7 +22,6 @@ module.exports = {
 
             jsonData.isSuccess = true;
             jsonData.coaches = coaches;
-            sails.log.debug(coaches);
             res.json(jsonData);
         });
     },
@@ -129,14 +128,16 @@ module.exports = {
             return res.json(jsonData);
         }
 
-        Coach.update({id: coachParams.id, deletedAt: null}, coachParams).exec(function (err, coaches) {
+        var id = coachParams.id;
+        coachParams.id = null;
+        Coach.update({id: id, deletedAt: null}, coachParams).exec(function (err, coaches) {
             if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
             }
 
             if (coaches === undefined || coaches.length === 0) {
-                var msg = 'Record not find with id: ' + coachParams.id;
+                var msg = 'Record not find with id: ' + id;
                 sails.log.error(msg);
                 jsonData.error = msg;
                 return res.json(jsonData);
@@ -164,14 +165,16 @@ module.exports = {
             return res.json(jsonData);
         }
 
-        Coach.update({id: coachParams.id, deletedAt: null}, {deletedAt: new Date()}).exec(function (err, coaches) {
+        var id = coachParams.id;
+        coachParams.id = null;
+        Coach.update({id: id, deletedAt: null}, {deletedAt: new Date()}).exec(function (err, coaches) {
             if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
             }
 
             if (coaches === undefined || coaches.length === 0) {
-                var msg = 'Record not find with id: ' + coachParams.id;
+                var msg = 'Record not find with id: ' + id;
                 sails.log.error(msg);
                 jsonData.error = msg;
                 return res.json(jsonData);
