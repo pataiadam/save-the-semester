@@ -28,6 +28,9 @@ module.exports = {
         },
         comment: {
             type: 'string'
+        },
+        deletedAt: {
+            type: 'datetime'
         }
     }
 };

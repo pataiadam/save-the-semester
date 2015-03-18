@@ -18,6 +18,9 @@ module.exports = {
         },
         coachId: {
             model: 'Coach'
+        },
+        deletedAt: {
+            type: 'datetime'
         }
     }
 };

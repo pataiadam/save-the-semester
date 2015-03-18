@@ -20,6 +20,9 @@ module.exports = {
         },
         creatorId: {
             model: 'User'
+        },
+        deletedAt: {
+            type: 'datetime'
         }
     }
 };
