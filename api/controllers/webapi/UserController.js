@@ -53,7 +53,7 @@ module.exports = {
                 sails.log.error(msg);
                 jsonData.error = msg;
                 return res.json(jsonData);
-            }
+            } 
 
             jsonData.isSuccess = true;
             jsonData.user = user;
@@ -131,22 +131,22 @@ module.exports = {
 
         var id = userParams.id;
         userParams.id = null;
-        User.update({id: id, deletedAt: null}, userParams).exec(function (err, user) {
+        User.update({id: id, deletedAt: null}, userParams).exec(function (err, users) {
             if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
             }
 
-            if (user === undefined) {
+            if (users === undefined || users.length === 0) {
                 var msg = 'Record not find with id: ' + id;
                 sails.log.error(msg);
-                sails.log.error(user);
+                sails.log.error(users);
                 jsonData.error = msg;
                 return res.json(jsonData);
             }
 
             jsonData.isSuccess = true;
-            jsonData.user = user;
+            jsonData.user = users[0];
             res.json(jsonData);
         });
 
@@ -167,13 +167,13 @@ module.exports = {
             return res.json(jsonData);
         }
 
-        User.update({id: userParams.id, deletedAt: null}, {deletedAt: new Date()}).exec(function (err, user) {
+        User.update({id: userParams.id, deletedAt: null}, {deletedAt: new Date()}).exec(function (err, users) {
             if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
             }
 
-            if (user === undefined){
+            if (users === undefined || users.length === 0){
                 var msg = 'Record not find with id: ' + userParams.id;
                 sails.log.error(msg);
                 jsonData.error = msg;
@@ -181,7 +181,7 @@ module.exports = {
             }
 
             jsonData.isSuccess = true;
-            jsonData.user = user;
+            jsonData.user = users[0];
             res.json(jsonData);
         });
     }

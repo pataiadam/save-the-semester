@@ -50,7 +50,8 @@
   "scripts": {
     "start": "node app.js",
     "debug": "node debug app.js",
-    "test": "NODE_ENV=test mocha -R spec --recursive"
+    "test": "NODE_ENV=test mocha -R spec --recursive",
+    "test": "./node_modules/.bin/mocha -R spec --recursive"
   },
   "main": "app.js",
   "repository": {
