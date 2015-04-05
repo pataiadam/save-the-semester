@@ -129,8 +129,9 @@ var AuthController = {
                     });
                 });
             }
+        }else {
+            passport.endpoint(req, res);
         }
-        passport.endpoint(req, res);
     },
 
     /**

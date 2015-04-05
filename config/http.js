@@ -60,11 +60,10 @@ module.exports.http = {
          ****************************************************************************/
 
         requestLogger: function (req, res, next) {
-            if (req.url.indexOf('/webapi') === 0)
+            //if (req.url.indexOf('/webapi') === 0)
                 sails.log.info("Requested :: ", req.method, req.url);
             return next();
         }
-
 
         /***************************************************************************
          *                                                                          *
