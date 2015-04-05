@@ -6,14 +6,14 @@
  */
 
 module.exports = {
-    getAllUser: function (req, res) {
+    getAllCircle: function (req, res) {
         var jsonData = {
             isSuccess: false,
             error: '',
-            users: []
+            circles: []
         };
 
-        User.find({deletedAt: null}).exec(function (err, users) {
+        Circle.find({deletedAt: null}).exec(function (err, circles) {
             if (!!err) {
                 sails.log.error(err);
                 jsonData.error = err.details;
@@ -21,57 +21,56 @@ module.exports = {
             }
 
             jsonData.isSuccess = true;
-            jsonData.users = users;
+            jsonData.circles = circles;
             res.json(jsonData);
         });
     },
 
-    getUserById: function (req, res) {
-        var userParams = req.body;
+    getCircleById: function (req, res) {
+        var circleParams = req.body;
         var jsonData = {
             isSuccess: false,
             error: '',
-            user: null
+            circle: null
         };
 
-        if (!userParams.hasOwnProperty('id')) {
-            var msg = 'Missing parameters: userId undefined.';
+        if (!circleParams.hasOwnProperty('id')) {
+            var msg = 'Missing parameters: circleId undefined.';
             sails.log.error(msg);
             jsonData.error = msg;
             return res.json(jsonData);
         }
 
-        User.findOne({id: userParams.id, deletedAt: null}).exec(function (err, user) {
+        Circle.findOne({id: circleParams.id, deletedAt: null}).exec(function (err, circle) {
             if (!!err) {
                 sails.log.error(err);
                 jsonData.error = err.details;
                 return res.json(jsonData);
             }
 
-            if (user === undefined) {
-                var msg = 'Record not find with id: ' + userParams.id;
+            if (circle === undefined) {
+                var msg = 'Record not find with id: ' + circleParams.id;
                 sails.log.error(msg);
                 jsonData.error = msg;
                 return res.json(jsonData);
-            } 
+            }
 
             jsonData.isSuccess = true;
-            jsonData.user = user;
+            jsonData.circle = circle;
             res.json(jsonData);
         });
     },
 
-    createUser: function (req, res) {
-        //TODO: user check, just authed user can creat coach
-        var userParams = req.body;
+    createCircle: function (req, res) {
+        var circleParams = req.body;
         var jsonData = {
             isSuccess: false,
             error: '',
-            user: null
+            circle: null
         };
 
 
-        User.create(userParams).exec(function (err, user) {
+        Circle.create(circleParams).exec(function (err, circle) {
             if (!!err) {
                 sails.log.error(err);
                 jsonData.error = err.details;
@@ -79,31 +78,30 @@ module.exports = {
             }
 
             jsonData.isSuccess = true;
-            jsonData.user = user;
+            jsonData.circle = circle;
             res.json(jsonData);
         });
     },
 
-    getUserBySearch: function (req, res) {
+    getCircleBySearch: function (req, res) {
         var searchParams = req.body;
         var jsonData = {
             isSuccess: false,
             error: '',
-            users: []
+            circles: []
         };
 
-        if(searchParams.hasOwnProperty('name') || searchParams.hasOwnProperty('email')){
-            User.find({or: [
-                    {name: {'like': '%' + searchParams.name + '%'}},
-                    {email: {'like': '%' + searchParams.email + '%'}}
-                  ]}).exec(function(err, results){
+        if(searchParams.hasOwnProperty('search')){
+            Circle.find({or: [
+                          {name: {'like': '%' + searchParams.search + '%'}},
+                        ]}).exec(function(err, results){
                 if (!!err) {
                     sails.log.error(err);
                     jsonData.error = err.details;
                     return res.json(jsonData);
                 }
                 jsonData.isSuccess = true;
-                jsonData.users = results;
+                jsonData.circles = results;
                 res.json(jsonData);
             });
         }else{
@@ -114,74 +112,74 @@ module.exports = {
         }
     },
 
-    updateUser: function (req, res) {
-        var userParams = req.body;
+    updateCircle: function (req, res) {
+        var circleParams = req.body;
         var jsonData = {
             isSuccess: false,
             error: '',
-            user: null
+            circle: null
         };
 
-        if (!userParams.hasOwnProperty('id')) {
-            var msg = 'Missing parameters: userId undefined.';
+        if (!circleParams.hasOwnProperty('id')) {
+            var msg = 'Missing parameters: circleId undefined.';
             sails.log.error(msg);
             jsonData.error = msg;
             return res.json(jsonData);
         }
 
-        var id = userParams.id;
-        userParams.id = null;
-        User.update({id: id, deletedAt: null}, userParams).exec(function (err, users) {
+        var id = circleParams.id;
+        circleParams.id = null;
+        Circle.update({id: id, deletedAt: null}, circleParams).exec(function (err, circles) {
             if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
             }
 
-            if (users === undefined || users.length === 0) {
+            if (circles === undefined || circles.length === 0) {
                 var msg = 'Record not find with id: ' + id;
                 sails.log.error(msg);
-                sails.log.error(users);
+                sails.log.error(circle);
                 jsonData.error = msg;
                 return res.json(jsonData);
             }
 
             jsonData.isSuccess = true;
-            jsonData.user = users[0];
+            jsonData.circle = circles[0];
             res.json(jsonData);
         });
 
     },
 
-    deleteUser: function (req, res) {
-        var userParams = req.body;
+    deleteCircle: function (req, res) {
+        var circleParams = req.body;
         var jsonData = {
             isSuccess: false,
             error: '',
-            user: null
+            circle: null
         };
 
-        if (!userParams.hasOwnProperty('id')) {
-            var msg = 'Missing parameters: userId undefined.';
+        if (!circleParams.hasOwnProperty('id')) {
+            var msg = 'Missing parameters: circleId undefined.';
             sails.log.error(msg);
             jsonData.error = msg;
             return res.json(jsonData);
         }
 
-        User.update({id: userParams.id, deletedAt: null}, {deletedAt: new Date()}).exec(function (err, users) {
+        Circle.update({id: circleParams.id, deletedAt: null}, {deletedAt: new Date()}).exec(function (err, circles) {
             if (!!err) {
                 sails.log.error(err);
                 req.flash(err);
             }
 
-            if (users === undefined || users.length === 0){
-                var msg = 'Record not find with id: ' + userParams.id;
+            if (circles === undefined || circles.length === 0){
+                var msg = 'Record not find with id: ' + circleParams.id;
                 sails.log.error(msg);
                 jsonData.error = msg;
                 return res.json(jsonData);
             }
 
             jsonData.isSuccess = true;
-            jsonData.user = users[0];
+            jsonData.circle = circles[0];
             res.json(jsonData);
         });
     }
