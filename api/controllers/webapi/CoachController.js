@@ -49,7 +49,42 @@ module.exports = {
             }
 
             if (coach === undefined) {
-                var msg = 'Record not find with id: ' + coachParams.id;
+                var msg = 'Record not found with id: ' + coachParams.id;
+                sails.log.error(msg);
+                jsonData.error = msg;
+                return res.json(jsonData);
+            }
+
+            jsonData.isSuccess = true;
+            jsonData.coach = coach;
+            res.json(jsonData);
+        });
+    },
+    
+    getCoachByUserId: function (req, res) {
+        var coachParams = req.body;
+        var jsonData = {
+            isSuccess: false,
+            error: '',
+            coach: null
+        };
+
+        if (!coachParams.hasOwnProperty('userId')) {
+            var msg = 'Missing parameters: userId undefined.';
+            sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+
+        Coach.findOne({userId: coachParams.userId, deletedAt: null}).exec(function (err, coach) {
+            if (!!err) {
+                sails.log.error(err);
+                jsonData.error = err.details;
+                return res.json(jsonData);
+            }
+
+            if (coach === undefined) {
+                var msg = 'Record not found with id: ' + coachParams.userId;
                 sails.log.error(msg);
                 jsonData.error = msg;
                 return res.json(jsonData);
