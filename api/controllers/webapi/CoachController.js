@@ -26,12 +26,12 @@ module.exports = {
         });
     },
 
-    getCoachById: function (req, res) {
+    getCoachesById: function (req, res) {
         var coachParams = req.body;
         var jsonData = {
             isSuccess: false,
             error: '',
-            coach: null
+            coaches: null
         };
 
         if (!coachParams.hasOwnProperty('id')) {
@@ -61,12 +61,12 @@ module.exports = {
         });
     },
     
-    getCoachByUserId: function (req, res) {
+    getCoachesByUserId: function (req, res) {
         var coachParams = req.body;
         var jsonData = {
             isSuccess: false,
             error: '',
-            coach: null
+            coach: []
         };
 
         if (!coachParams.hasOwnProperty('userId')) {
@@ -76,14 +76,14 @@ module.exports = {
             return res.json(jsonData);
         }
 
-        Coach.findOne({userId: coachParams.userId, deletedAt: null}).exec(function (err, coach) {
+        Coach.find({userId: coachParams.userId, deletedAt: null}).exec(function (err, coaches) {
             if (!!err) {
                 sails.log.error(err);
                 jsonData.error = err.details;
                 return res.json(jsonData);
             }
 
-            if (coach === undefined) {
+            if (coaches === undefined) {
                 var msg = 'Record not found with id: ' + coachParams.userId;
                 sails.log.error(msg);
                 jsonData.error = msg;
@@ -91,7 +91,7 @@ module.exports = {
             }
 
             jsonData.isSuccess = true;
-            jsonData.coach = coach;
+            jsonData.coaches = coaches;
             res.json(jsonData);
         });
     },
