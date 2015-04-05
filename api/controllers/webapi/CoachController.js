@@ -26,12 +26,12 @@ module.exports = {
         });
     },
 
-    getCoachesById: function (req, res) {
+    getCoachById: function (req, res) {
         var coachParams = req.body;
         var jsonData = {
             isSuccess: false,
             error: '',
-            coaches: null
+            coach: null
         };
 
         if (!coachParams.hasOwnProperty('id')) {
