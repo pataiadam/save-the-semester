@@ -66,7 +66,7 @@ module.exports = {
         var jsonData = {
             isSuccess: false,
             error: '',
-            coach: []
+            coaches: []
         };
 
         if (!coachParams.hasOwnProperty('userId')) {
