@@ -113,6 +113,8 @@ var AuthController = {
                         return res.json(response);
                     });
                 });
+            }else{
+                passport.endpoint(req, res);
             }
         }else {
             passport.endpoint(req, res);
