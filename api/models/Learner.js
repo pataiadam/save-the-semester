@@ -19,6 +19,10 @@ module.exports = {
         coachId: {
             model: 'Coach'
         },
+        acceptedRequest: {
+        	type: 'boolean',
+        	default: false
+        },
         deletedAt: {
             type: 'datetime'
         }

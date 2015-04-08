@@ -219,5 +219,81 @@ module.exports = {
             jsonData.coach = coaches[0];
             res.json(jsonData);
         });
+    },
+    
+    joinCoach: function (req, res) {
+    	var params = req.body;
+    	var jsonData = {
+            isSuccess: false,
+            error: '',
+            learner: null
+        };
+        
+    	if(!params.hasOwnProperty('userId')) {
+    		var msg = 'Missing parameters: userId undefined.';
+    		sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+        
+        if(!params.hasOwnProperty('coachId')) {
+    		var msg = 'Missing parameters: coachId undefined.';
+    		sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+        
+        var userId = params.userId;
+        var coachId = params.coachId;
+        
+        Learner.create(params).exec(function (err, learner) {
+            if (!!err) {
+                sails.log.error(err);
+                jsonData.error = err.details;
+                return res.json(jsonData);
+            }
+
+            jsonData.isSuccess = true;
+            jsonData.learner = learner;
+            res.json(jsonData);
+        });
+    },
+    
+    accept: function (req, res) {
+    	var params = req.body;
+    	var jsonData = {
+            isSuccess: false,
+            error: '',
+            learner: null
+        };
+        
+    	if(!params.hasOwnProperty('userId')) {
+    		var msg = 'Missing parameters: userId undefined.';
+    		sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+        
+        if(!params.hasOwnProperty('coachId')) {
+    		var msg = 'Missing parameters: coachId undefined.';
+    		sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+        var userId = params.userId;
+        var coachId = params.coachId;
+        
+        Learner.find({userId: params.userId, coachId: params.coachId, deletedAt: null}).exec(function (err, learner) {
+            if (!!err) {
+                sails.log.error(err);
+                jsonData.error = err.details;
+                return res.json(jsonData);
+            }
+
+            jsonData.isSuccess = true;
+            learner.acceptedRequest = true;
+            jsonData.learner = learner;
+            res.json(jsonData);
+        });
     }
 };
