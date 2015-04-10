@@ -172,7 +172,7 @@ module.exports = {
             }
 
             if (coaches === undefined || coaches.length === 0) {
-                var msg = 'Record not find with id: ' + id;
+                var msg = 'Record not found with id: ' + id;
                 sails.log.error(msg);
                 jsonData.error = msg;
                 return res.json(jsonData);
@@ -209,7 +209,7 @@ module.exports = {
             }
 
             if (coaches === undefined || coaches.length === 0) {
-                var msg = 'Record not find with id: ' + id;
+                var msg = 'Record not found with id: ' + id;
                 sails.log.error(msg);
                 jsonData.error = msg;
                 return res.json(jsonData);
@@ -280,8 +280,6 @@ module.exports = {
             jsonData.error = msg;
             return res.json(jsonData);
         }
-        var userId = params.userId;
-        var coachId = params.coachId;
         
         Learner.find({userId: params.userId, coachId: params.coachId, deletedAt: null}).exec(function (err, learner) {
             if (!!err) {
@@ -293,6 +291,47 @@ module.exports = {
             jsonData.isSuccess = true;
             learner.acceptedRequest = true;
             jsonData.learner = learner;
+            res.json(jsonData);
+        });
+    },
+    
+    cancel: function (req, res) {
+    	var params = req.body;
+    	var jsonData = {
+            isSuccess: false,
+            error: '',
+            learner: null
+        };
+        
+    	if(!params.hasOwnProperty('userId')) {
+    		var msg = 'Missing parameters: userId undefined.';
+    		sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+        
+        if(!params.hasOwnProperty('coachId')) {
+    		var msg = 'Missing parameters: coachId undefined.';
+    		sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+       	
+        Learner.update({userId: params.userId, coachId: params. coachId, deletedAt: null}, {deletedAt: new Date()}).exec(function (err, learners) {
+            if (!!err) {
+                sails.log.error(err);
+                req.flash(err);
+            }
+
+            if (learners === undefined || learners.length === 0) {
+                var msg = 'Record not found with id: ' + params.coachId;
+                sails.log.error(msg);
+                jsonData.error = msg;
+                return res.json(jsonData);
+            }
+
+            jsonData.isSuccess = true;
+            jsonData.learner = learners[0];
             res.json(jsonData);
         });
     }
