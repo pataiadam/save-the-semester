@@ -281,7 +281,7 @@ module.exports = {
             return res.json(jsonData);
         }
         
-        Learner.find({userId: params.userId, coachId: params.coachId, deletedAt: null}).exec(function (err, learner) {
+        Learner.update({userId: params.userId, coachId: params. coachId, deletedAt: null}, {acceptedRequest: true}).exec(function (err, learners) {
             if (!!err) {
                 sails.log.error(err);
                 jsonData.error = err.details;
@@ -289,8 +289,7 @@ module.exports = {
             }
 
             jsonData.isSuccess = true;
-            learner.acceptedRequest = true;
-            jsonData.learner = learner;
+            jsonData.learner = learners[0];
             res.json(jsonData);
         });
     },

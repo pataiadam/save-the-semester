@@ -1,11 +1,12 @@
 var appRoot = require('app-root-path');
 var request = require(appRoot + '/test/lib/request.js');
+var userApi = require(appRoot + '/api/models/User.js');
 var chai = require('chai');
 chai.should();
 
 
 describe('Coach', function(){
-    var coach, learner;
+    var coach, learner, user;
     describe('createCoach', function(){
         it('should create a coach', function(done){
             var api = 'webapi/coach/createCoach';
@@ -120,10 +121,15 @@ describe('Coach', function(){
     });
     
     describe('joinCoach', function(){
-        it('should join a user to coach (i.e. create a learner)', function(done){
+    	before(function(){
+    		User.create({name: 'test_name', email: 'test@email.org'}).exec(function (err, u) {
+                user = u;
+            });
+    	});
+        it('should join a user to coach', function(done){
             var api = 'webapi/coach/joinCoach';
-            var uId = '5527d169fc87bc2b0d1e96ad';
-            var params = {userId: uId, coachId: coach.id};
+            console.log(user.id);
+            var params = {userId: user.id, coachId: coach.id};
 
             request.send(api, params, function(result){
                 result.should.have.property('isSuccess');
@@ -132,9 +138,9 @@ describe('Coach', function(){
                 result.error.should.equal('');
                 result.should.have.property('learner');
                 result.learner.should.have.property('userId');
-                result.learner.userId.should.equal(uId);
+                result.learner.userId.should.equal(user.id);
                 result.learner.should.have.property('coachId');
-                result.learner.userId.should.equal(coach.id);
+                result.learner.coachId.should.equal(coach.id);
                 result.learner.should.have.property('acceptedRequest');
                 result.learner.acceptedRequest.should.equal(false);
                 learner = result.learner;
@@ -159,7 +165,7 @@ describe('Coach', function(){
                 result.learner.should.have.property('userId');
                 result.learner.userId.should.equal(learner.userId);
                 result.learner.should.have.property('coachId');
-                result.learner.userId.should.equal(learner.coachId);
+                result.learner.coachId.should.equal(learner.coachId);
                 result.learner.should.have.property('acceptedRequest');
                 result.learner.acceptedRequest.should.equal(true);
                 done();
@@ -183,7 +189,7 @@ describe('Coach', function(){
                 result.learner.should.have.property('userId');
                 result.learner.userId.should.equal(learner.userId);
                 result.learner.should.have.property('coachId');
-                result.learner.userId.should.equal(learner.coachId);
+                result.learner.coachId.should.equal(learner.coachId);
                 result.learner.should.have.property('deletedAt');
                 result.learner.deletedAt.should.not.equal(null);
                 done();
