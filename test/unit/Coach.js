@@ -128,7 +128,6 @@ describe('Coach', function(){
     	});
         it('should join a user to coach', function(done){
             var api = 'webapi/coach/joinCoach';
-            console.log(user.id);
             var params = {userId: user.id, coachId: coach.id};
 
             request.send(api, params, function(result){

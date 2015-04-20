@@ -21,7 +21,7 @@ module.exports = {
         },
         acceptedRequest: {
         	type: 'boolean',
-        	default: false
+        	defaultsTo: false
         },
         deletedAt: {
             type: 'datetime'
