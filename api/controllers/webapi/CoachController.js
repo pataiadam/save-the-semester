@@ -184,6 +184,59 @@ module.exports = {
         });
 
     },
+    
+    rateCoach: function (req, res) {
+        var rateParams = req.body;
+        var jsonData = {
+            isSuccess: false,
+            error: '',
+            rate: null
+        };
+
+        Rate.create(rateParams).exec(function (err, rate) {
+            if (!!err) {
+                sails.log.error(err);
+                jsonData.error = err.details;
+                return res.json(jsonData);
+            }
+
+            jsonData.isSuccess = true;
+            jsonData.rate = rate;
+            res.json(jsonData);
+        });
+    },
+    
+    getAvgRateByCoachId: function (req, res) {
+        var params = req.body;
+        var jsonData = {
+            isSuccess: false,
+            error: '',
+            avgRate: 0
+        };
+
+        if (!params.hasOwnProperty('coachId')) {
+            var msg = 'Missing parameters: coachId undefined.';
+            sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+        
+        Rate.find({coachId: params.coachId, deletedAt: null}).exec(function (err, rates) {
+            if (!!err) {
+                sails.log.error(err);
+                jsonData.error = err.details;
+                return res.json(jsonData);
+            }
+            
+            var count = rates.length, sum = 0;
+            for (i = 0; i < rates.length; ++i) {
+            	sum += rates[i].value;
+            }
+            jsonData.isSuccess = true;
+            jsonData.avgRate = (count > 0) ? sum/count : 0;
+            res.json(jsonData);
+        });
+    },
 
     deleteCoach: function (req, res) {
         var coachParams = req.body;

@@ -36,12 +36,6 @@ module.exports = {
         	min: 0.0,
         	defaultsTo: 0.0
         },
-        rate: {
-        	type: 'float',
-        	min: 0.0,
-        	max: 5.0,
-        	defaultsTo: 0.0
-        },
         deletedAt: {
             type: 'datetime'
         }

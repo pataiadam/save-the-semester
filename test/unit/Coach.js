@@ -1,11 +1,12 @@
 var appRoot = require('app-root-path');
 var request = require(appRoot + '/test/lib/request.js');
+var userApi = require(appRoot + '/api/models/User.js');
 var chai = require('chai');
 chai.should();
 
 
 describe('Coach', function(){
-    var coach;
+    var coach, learner, user, rate;
     describe('createCoach', function(){
         it('should create a coach', function(done){
             var api = 'webapi/coach/createCoach';
@@ -27,8 +28,6 @@ describe('Coach', function(){
                 result.coach.email.should.equal('test@coach.org');
                 result.coach.should.have.property('price');
                 result.coach.price.should.equal(0.0);
-                result.coach.should.have.property('rate');
-                result.coach.rate.should.equal(0.0);
                 coach = result.coach;
                 done();
             })
@@ -110,6 +109,60 @@ describe('Coach', function(){
                 result.coach.phoneNumber.should.equal('06309876543');
                 result.coach.email.should.equal('updated@coach.org');
                 result.coach.price.should.equal(500.0);
+                done();
+            })
+        })
+    });
+    
+    describe('rateCoach', function(){
+    	before(function(){
+    		User.create({name: 'test_name1', email: 'test1@email.org'}).exec(function(err,u){
+    			user = u;
+    		})
+    	});
+        it('should create a Rate to coach', function(done){
+            var api = 'webapi/coach/rateCoach';
+            var params = {userId: user.id,
+            				coachId: coach.id,
+                            value: 5,
+                            comment: 'test_comment'};
+
+            request.send(api, params, function(result){
+                result.should.have.property('isSuccess');
+                result.isSuccess.should.equal(true);
+                result.should.have.property('error');
+                result.error.should.equal('');
+                result.should.have.property('rate');
+                result.rate.should.have.property('userId');
+                result.rate.userId.should.equal(user.id);
+                result.rate.should.have.property('coachId');
+                result.rate.coachId.should.equal(coach.id);
+                //result.rate.should.have.property('circleId');
+                //result.rate.circleId.should.equal(null);
+                result.rate.should.have.property('value');
+                result.rate.value.should.equal(5);
+                result.rate.should.have.property('comment');
+                result.rate.comment.should.equal('test_comment');
+                result.rate.should.have.property('isAnonymous');
+                result.rate.isAnonymous.should.equal(false);
+                rate = result.rate;
+                done();
+            })
+        })
+    });
+    
+    describe('getAvgRateByCoachId', function(){
+        it('should get average rate by coachId', function(done){
+            var api = 'webapi/coach/getAvgRateByCoachId';
+            var params = {coachId: coach.id};
+
+            request.send(api, params, function(result){
+                result.should.have.property('isSuccess');
+                result.isSuccess.should.equal(true);
+                result.should.have.property('error');
+                result.error.should.equal('');
+                result.should.have.property('avgRate');
+                result.avgRate.should.equal(5);
                 done();
             })
         })
