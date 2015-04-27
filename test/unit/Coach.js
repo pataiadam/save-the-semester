@@ -72,6 +72,24 @@ describe('Coach', function(){
             })
         })
     });
+    
+    describe('getCoachesByUserId', function(){
+        it('should get coaches by userid', function(done){
+            var api = 'webapi/coach/getCoachesByUserId';
+            var params = {userId: coach.userId};
+
+            request.send(api, params, function(result){
+                result.should.have.property('isSuccess');
+                result.isSuccess.should.equal(true);
+                result.should.have.property('error');
+                result.error.should.equal('');
+                result.should.have.property('coaches');
+                result.coaches.should.be.an('array');
+                result.coaches.should.have.length.above(0);
+                done();
+            })
+        })
+    });
 
     describe('getCoachBySearch', function(){
         it('should get a coach by subject', function(done){
@@ -174,6 +192,82 @@ describe('Coach', function(){
                 result.rate.value.should.equal(5.0);
                 result.rate.should.have.property('comment');
                 result.rate.comment.should.equal('test_comment');
+                done();
+            })
+        })
+    });
+    
+    describe('joinCoach', function(){
+    	before(function(){
+    		User.create({name: 'test_name', email: 'test@email.org'}).exec(function (err, u) {
+                user = u;
+            });
+    	});
+        it('should join a user to coach', function(done){
+            var api = 'webapi/coach/joinCoach';
+            var params = {userId: user.id, coachId: coach.id};
+
+            request.send(api, params, function(result){
+                result.should.have.property('isSuccess');
+                result.isSuccess.should.equal(true);
+                result.should.have.property('error');
+                result.error.should.equal('');
+                result.should.have.property('learner');
+                result.learner.should.have.property('userId');
+                result.learner.userId.should.equal(user.id);
+                result.learner.should.have.property('coachId');
+                result.learner.coachId.should.equal(coach.id);
+                result.learner.should.have.property('acceptedRequest');
+                result.learner.acceptedRequest.should.equal(false);
+                learner = result.learner;
+                done();
+            })
+        })
+    });
+    
+    describe('accept', function(){
+        it('should change acceptedRequest to "true" in learner', function(done){
+            var api = 'webapi/coach/accept';
+            var params = {userId: learner.userId, coachId: learner.coachId};
+
+            request.send(api, params, function(result){
+                result.should.have.property('isSuccess');
+                result.isSuccess.should.equal(true);
+                result.should.have.property('error');
+                result.error.should.equal('');
+                result.should.have.property('learner');
+                result.learner.should.have.property('id');
+                result.learner.id.should.equal(learner.id);
+                result.learner.should.have.property('userId');
+                result.learner.userId.should.equal(learner.userId);
+                result.learner.should.have.property('coachId');
+                result.learner.coachId.should.equal(learner.coachId);
+                result.learner.should.have.property('acceptedRequest');
+                result.learner.acceptedRequest.should.equal(true);
+                done();
+            })
+        })
+    });
+    
+    describe('cancel', function(){
+        it('should delete learner (i.e. cancel join request)', function(done){
+            var api = 'webapi/coach/cancel';
+            var params = {userId: learner.userId, coachId: learner.coachId};
+
+            request.send(api, params, function(result){
+                result.should.have.property('isSuccess');
+                result.isSuccess.should.equal(true);
+                result.should.have.property('error');
+                result.error.should.equal('');
+                result.should.have.property('learner');
+                result.learner.should.have.property('id');
+                result.learner.id.should.equal(learner.id);
+                result.learner.should.have.property('userId');
+                result.learner.userId.should.equal(learner.userId);
+                result.learner.should.have.property('coachId');
+                result.learner.coachId.should.equal(learner.coachId);
+                result.learner.should.have.property('deletedAt');
+                result.learner.deletedAt.should.not.equal(null);
                 done();
             })
         })
