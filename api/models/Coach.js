@@ -23,6 +23,24 @@ module.exports = {
         description: {
             type: 'string'
         },
+        phoneNumber: {
+        	type: 'string',
+        	numeric: true
+        },
+        email: {
+        	type: 'email',
+        	email: true
+        },
+        price: {
+        	type: 'float',
+        	min: 0.0,
+        	defaultsTo: 0.0
+        },
+        avgRate: {
+        	type: 'float',
+        	min: 0.0,
+        	defaultsTo: 0.0
+        },
         deletedAt: {
             type: 'datetime'
         }
