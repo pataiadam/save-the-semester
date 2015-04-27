@@ -36,6 +36,11 @@ module.exports = {
         	min: 0.0,
         	defaultsTo: 0.0
         },
+        avgRate: {
+        	type: 'float',
+        	min: 0.0,
+        	defaultsTo: 0.0
+        },
         deletedAt: {
             type: 'datetime'
         }
