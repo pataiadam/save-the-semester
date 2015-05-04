@@ -80,6 +80,7 @@ module.exports = {
 
             jsonData.isSuccess = true;
             jsonData.user = user;
+            esService.create('user', user);
             res.json(jsonData);
         });
     },
@@ -147,6 +148,7 @@ module.exports = {
 
             jsonData.isSuccess = true;
             jsonData.user = users[0];
+            esService.update('user',id,userParams);
             res.json(jsonData);
         });
 
@@ -182,6 +184,7 @@ module.exports = {
 
             jsonData.isSuccess = true;
             jsonData.user = users[0];
+            esService.delete('user', userParams.id);
             res.json(jsonData);
         });
     }

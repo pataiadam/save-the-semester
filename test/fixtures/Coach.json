@@ -1,1 +1,16 @@
-[]
+{
+  "collection" : "Coach",
+  "data" : [
+    {"subject": "matematika", "description": "", "phoneNumber": "06207283726", "email": "nekeress@gmail.com"},
+    {"subject": "Kalkulus", "description": "", "phoneNumber": "06302678453", "email": "s.etil@sc.hu"},
+    {"subject": "Általános biomechanika", "description": "", "phoneNumber": "0662765132", "email": "szelescsaj82@hotmail.com"},
+    {"subject": "Programozás 1.", "description": "", "phoneNumber": "0619828997", "email": "s.endre@inf.u-szeged.hu"},
+    {"subject": "Progalap", "description": "", "phoneNumber": "06201394167", "email": "valaki83@freemail.hu"},
+    {"subject": "Kalk2", "description": "", "phoneNumber": "06708712987", "email": "negyvenketto@scifi.net"},
+    {"subject": "Mindennapjaink kémiája", "description": "", "phoneNumber": "06305372893", "email": "intergalactic1234@googlemail.com"},
+    {"subject": "Tesi", "description": "", "phoneNumber": "0623987354", "email": "zsuzsi365@sci.u-szeged.hu"},
+    {"subject": "Veszélyes anyagok", "description": "", "phoneNumber": "0036306473829", "email": "gepelesihiba@error.ru"},
+    {"subject": "Rendszerfejlesztés", "description": "", "phoneNumber": "06707463822", "email": "utolsoelotti89@hata.lom"},
+    {"subject": "Adatbázis alapú rendszerek", "description": "", "phoneNumber": "0044506152735", "email": "the.end@nasa.gov"}
+  ]
+}
