@@ -11,6 +11,7 @@
     "bcryptjs": "^2.1.0",
     "chai": "^2.1.0",
     "ejs": "~0.8.4",
+    "elasticsearch": "4.0.2",
     "express": "^4.12.2",
     "flash": "^1.1.0",
     "grunt": "0.4.2",
