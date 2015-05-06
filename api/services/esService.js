@@ -50,13 +50,32 @@ module.exports = {
         });
     },
 
-    search : function (str, callback){
+    search : function (str, params, callback){
 
         var hits = [], error = '';
 
+        var type = params.hasOwnProperty('type') ? params.type : _all;
+        var field = params.hasOwnProperty('field') ? params.field : _all;
+        var distance = params.hasOwnProperty('distance') ? params.distance : '50km';
+        var geoDistance = (params.hasOwnProperty('lat') && params.hasOwnProperty('lon'));
+        var fieldParam = {};
+        fieldParam[field] = { value: str, fuzziness: 4 };
+
         client.search({
 
-            p: str
+            index: 'main',
+            type: type,
+            body:{
+                query:{
+                    fuzzy: {
+                        subject: {
+                            value: str,
+                            fuzziness: 3
+                        }
+                    }
+                }
+            }
+
         }).then(function(res){
             console.log(res);
             hits = res.hits;

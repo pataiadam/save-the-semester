@@ -8,6 +8,10 @@ module.exports = {
             error: '',
             results: []
         };
+        var params = {
+            type : null,
+            field : null
+        };
 
         if (!searchParams.hasOwnProperty('search')) {
             var msg = 'Missing parameters: search undefined.';
@@ -15,9 +19,15 @@ module.exports = {
             jsonData.error = msg;
             return res.json(jsonData);
         }
+        if(searchParams.hasOwnProperty('type')){
+            type = searchParams.type;
+        }
+        if(searchParams.hasOwnProperty('field')){
+            field = searchParams.field;
+        }
         var searchStr = searchParams.search;
 
-        esService.search(searchStr, function(result, err){
+        esService.search(searchStr, params, function(result, err){
             if(!!err){
                 sails.log.error(err);
                 jsonData.error = err.details;

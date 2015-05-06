@@ -7,18 +7,20 @@ chai.should();
 
 describe('Global', function() {
 
+    var users = [], coaches = [];
+
     before(function(){
         var coach, user;
         var testUser = grunt.file.readJSON(path.join(__dirname,'..','fixtures/User.json'));
         var testCoach = grunt.file.readJSON(path.join(__dirname,'..','fixtures/Coach.json'));
-        var users = [];
+
 
         for(var i = 0; i < 10; ++i) {
             User.create(testUser.data[i]).exec(function (err, u) {
                 if (err) {
                     sails.log(err);
                 }
-                //users.push(u);
+                users.push(u);
                 esService.create('user', u);
             });
         }
@@ -27,6 +29,7 @@ describe('Global', function() {
                 if (err) {
                     sails.log(err);
                 }
+                coaches.push(c);
                 esService.create('coach', c);
             });
         }
@@ -36,7 +39,7 @@ describe('Global', function() {
         it('should return the most relevant results from elasticsearch server', function (done) {
             var api = 'webapi/global/search';
             var params = {
-                search : "Kalkulus"
+                search : "Kalk"
             };
 
             request.send(api, params, function (result) {
@@ -50,6 +53,13 @@ describe('Global', function() {
                 done();
             })
         })
+    });
+
+    after(function(){
+        for(var i = 0; i < 10; ++i) {
+            esService.delete('user', users[i].id);
+            esService.delete('coach', coaches[i].id);
+        }
     });
 
 });
