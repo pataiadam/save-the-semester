@@ -27,10 +27,6 @@ module.exports = {
         	type: 'string',
         	numeric: true
         },
-        email: {
-        	type: 'email',
-        	email: true
-        },
         price: {
         	type: 'float',
         	min: 0.0,
