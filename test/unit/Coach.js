@@ -10,7 +10,7 @@ describe('Coach', function(){
     describe('createCoach', function(){
         it('should create a coach', function(done){
             var api = 'webapi/coach/createCoach';
-            var params = {subject: 'test_subject', description: 'test_description', phoneNumber: '06301234567', email: 'test@coach.org'};
+            var params = {subject: 'test_subject', description: 'test_description', phoneNumber: '06301234567'};
 
             request.send(api, params, function(result){
                 result.should.have.property('isSuccess');
@@ -24,8 +24,6 @@ describe('Coach', function(){
                 result.coach.description.should.equal('test_description');
                 result.coach.should.have.property('phoneNumber');
                 result.coach.phoneNumber.should.equal('06301234567');
-                result.coach.should.have.property('email');
-                result.coach.email.should.equal('test@coach.org');
                 result.coach.should.have.property('price');
                 result.coach.price.should.equal(0.0);
                 result.coach.should.have.property('avgRate');
@@ -115,7 +113,6 @@ describe('Coach', function(){
                             subject: 'updatedTest',
                             description: 'updatedDescription',
                             phoneNumber: '06309876543',
-                            email: 'updated@coach.org',
                             price: 500.0};
 
             request.send(api, params, function(result){
@@ -127,7 +124,6 @@ describe('Coach', function(){
                 result.coach.subject.should.equal('updatedTest');
                 result.coach.description.should.equal('updatedDescription');
                 result.coach.phoneNumber.should.equal('06309876543');
-                result.coach.email.should.equal('updated@coach.org');
                 result.coach.price.should.equal(500.0);
                 done();
             })
