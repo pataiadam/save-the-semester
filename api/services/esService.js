@@ -3,18 +3,54 @@
  */
 
 var es = require('elasticsearch');
-var client = new es.Client({
-    host: 'localhost:9200'
-});
+var indexName = 'save-the-semester';
+
+var helper = {
+    getClient : function(){
+
+        var success;
+        var client = new es.Client({
+            host: 'localhost:9200'
+        });
+        var settings = {
+            analysis:{
+                analyzer:{
+                    lowercaser:{
+                        tokenizer: 'whitespace',
+                        filter: [ 'lowercase' ]
+                    }
+                }
+            }
+        };
+        client.indices.close({
+            index: indexName
+        }, function(){
+            client.indices.putSettings({
+                body: {
+                    settings: settings
+                }
+            }, function(){
+                client.indices.open({
+                    index: indexName
+                });
+            });
+        });
+
+        return client;
+    }
+};
+
+var client = helper.getClient();
+
 
 module.exports = {
 
-    create : function (type, obj){
+    create : function (type, id, obj){
 
         client.create({
-            index: 'main',
+            index: indexName,
             type: type,
-            id: obj.id,
+            id: id,
             body: obj
         }, function(error, response){
             if(error) {
@@ -26,7 +62,7 @@ module.exports = {
     delete : function(type, id){
 
         client.delete({
-            index: 'main',
+            index: indexName,
             type: type,
             id: id
         }, function(error, response){
@@ -39,7 +75,7 @@ module.exports = {
     update : function(type, id, params){
 
         client.update({
-            index: 'main',
+            index: indexName,
             type: type,
             id: id,
             body: params
@@ -54,26 +90,66 @@ module.exports = {
 
         var hits = [], error = '';
 
-        var type = params.hasOwnProperty('type') ? params.type : _all;
-        var field = params.hasOwnProperty('field') ? params.field : _all;
+        // Basic type and field filter
+        var type = params.hasOwnProperty('type') ? params.type : 'coach,user';
+        var field = params.hasOwnProperty('field') ? params.field : '_all';
+
+        //TODO: GeoDistance
         var distance = params.hasOwnProperty('distance') ? params.distance : '50km';
         var geoDistance = (params.hasOwnProperty('lat') && params.hasOwnProperty('lon'));
+
+        var filtered = params.hasOwnProperty('filtered') ? params.filtered : false;
+
+        // JSON values for search
+        var filter = {};
         var fieldParam = {};
-        fieldParam[field] = { value: str, fuzziness: 4 };
+        fieldParam[field] = { query: str, slop: 3 };
+        var query = {
+            match_phrase_prefix: fieldParam
+        };
+
+        if(filtered) {
+
+            // Price range
+            var minPrice = params.hasOwnProperty('minPrice') ? params.minPrice : 0.0;
+            var maxPrice = params.hasOwnProperty('maxPrice') ? params.maxPrice : 100000.0;
+
+            // Rate minimum value
+            var minRate = params.hasOwnProperty('minRate') ? params.minRate : 0.0;
+
+            filter = {
+                bool: {
+                    must: [
+                        {
+                            range: {
+                                price: { from: minPrice, to: maxPrice }
+                            }
+                        },
+                        {
+                            range: {
+                                avgRate: { from: minRate }
+                            }
+                        }
+                    ]
+                }
+            };
+
+            query = {
+                filtered: {
+                    query: {
+                        match_phrase_prefix: fieldParam
+                    },
+                    filter: filter
+                }
+            }
+        }
 
         client.search({
 
-            index: 'main',
+            index: indexName,
             type: type,
             body:{
-                query:{
-                    fuzzy: {
-                        subject: {
-                            value: str,
-                            fuzziness: 3
-                        }
-                    }
-                }
+                query: query
             }
 
         }).then(function(res){

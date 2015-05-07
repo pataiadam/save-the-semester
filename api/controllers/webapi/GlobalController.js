@@ -1,5 +1,4 @@
 
-
 module.exports = {
     search: function (req, res) {
         var searchParams = req.body;
@@ -8,10 +7,7 @@ module.exports = {
             error: '',
             results: []
         };
-        var params = {
-            type : null,
-            field : null
-        };
+        var params = {};
 
         if (!searchParams.hasOwnProperty('search')) {
             var msg = 'Missing parameters: search undefined.';
@@ -20,10 +16,13 @@ module.exports = {
             return res.json(jsonData);
         }
         if(searchParams.hasOwnProperty('type')){
-            type = searchParams.type;
+            params.type = searchParams.type;
         }
         if(searchParams.hasOwnProperty('field')){
-            field = searchParams.field;
+            params.field = searchParams.field;
+        }
+        if(searchParams.hasOwnProperty('filtered')){
+            params.filtered = searchParams.filtered;
         }
         var searchStr = searchParams.search;
 

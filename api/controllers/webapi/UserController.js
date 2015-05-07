@@ -80,7 +80,10 @@ module.exports = {
 
             jsonData.isSuccess = true;
             jsonData.user = user;
-            esService.create('user', user);
+            esService.create('user', user.id,
+                {
+                    name: user.name
+                });
             res.json(jsonData);
         });
     },

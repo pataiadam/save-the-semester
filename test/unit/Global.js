@@ -21,7 +21,11 @@ describe('Global', function() {
                     sails.log(err);
                 }
                 users.push(u);
-                esService.create('user', u);
+                esService.create('user', u.id,
+                    {
+                        name: u.name,
+                        email: u.email
+                    });
             });
         }
         for(var i = 0; i < 10; ++i) {
@@ -30,7 +34,14 @@ describe('Global', function() {
                     sails.log(err);
                 }
                 coaches.push(c);
-                esService.create('coach', c);
+                esService.create('coach', c.id,
+                    {
+                        subject: c.subject,
+                        description: c.description,
+                        phoneNumber: c.phoneNumber,
+                        price: c.price,
+                        avgRate: c.avgRate
+                    });
             });
         }
     });
@@ -39,7 +50,7 @@ describe('Global', function() {
         it('should return the most relevant results from elasticsearch server', function (done) {
             var api = 'webapi/global/search';
             var params = {
-                search : "Kalk"
+                search : "kalk"
             };
 
             request.send(api, params, function (result) {
@@ -59,7 +70,6 @@ describe('Global', function() {
         for(var i = 0; i < 10; ++i) {
             esService.delete('user', users[i].id);
             esService.delete('coach', coaches[i].id);
-        }
+        };
     });
-
 });

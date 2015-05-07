@@ -114,7 +114,14 @@ module.exports = {
 
             jsonData.isSuccess = true;
             jsonData.coach = coach;
-            esService.create('coach', coach);
+            esService.create('coach', coach.id,
+                {
+                    subject: coach.subject,
+                    description: coach.description,
+                    phoneNumber: coach.phoneNumber,
+                    price: coach.price,
+                    avgRate: coach.avgRate
+                });
             res.json(jsonData);
         });
     },
