@@ -68,5 +68,68 @@ module.exports = {
             });
 
         });
+    },
+
+    getLocationByLatLng : function(req, res) {
+
+        var params = req.body;
+        var jsonData = {
+            isSuccess: false,
+            error: '',
+            results: []
+        };
+
+        if (!params.hasOwnProperty('lat')) {
+            var msg = 'Missing parameters: lat undefined.';
+            sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+
+        if (!params.hasOwnProperty('lng')) {
+            var msg = 'Missing parameters: lng undefined.';
+            sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+
+        gcService.reverseGeocode(params.lat, params.lng, function(err, results){
+            if (!!err) {
+                sails.log.error(err);
+                jsonData.error = err.details;
+                return res.json(jsonData);
+            }
+            jsonData.results = results;
+            jsonData.isSuccess = true;
+            res.json(jsonData);
+        });
+    },
+
+    getLatLngByLocation : function(req, res) {
+
+        var params = req.body;
+        var jsonData = {
+            isSuccess: false,
+            error: '',
+            results: {}
+        };
+
+        if (!params.hasOwnProperty('search')) {
+            var msg = 'Missing parameters: search undefined.';
+            sails.log.error(msg);
+            jsonData.error = msg;
+            return res.json(jsonData);
+        }
+
+        gcService.geocode(params.search, function(err, results){
+            if (!!err) {
+                sails.log.error(err);
+                jsonData.error = err.details;
+                return res.json(jsonData);
+            }
+            jsonData.results = results;
+            jsonData.isSuccess = true;
+            res.json(jsonData);
+        });
     }
 };

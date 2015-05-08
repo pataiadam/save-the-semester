@@ -16,7 +16,6 @@ describe('User', function(){
             };
 
             request.send(api, params, function(result){
-                console.log(result.error);
                 result.should.have.property('isSuccess');
                 result.isSuccess.should.equal(true);
                 result.should.have.property('error');

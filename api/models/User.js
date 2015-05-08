@@ -39,5 +39,13 @@ module.exports = {
         point: function(latlng) {
             return latlng.x && latlng.y
         }
+    },
+    beforeValidate: function(value, next){
+        for(key in value){
+            if(!User.definition.hasOwnProperty(key)){
+                delete value[key];
+            }
+        }
+        next();
     }
 };
