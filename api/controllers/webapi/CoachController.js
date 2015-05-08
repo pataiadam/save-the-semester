@@ -120,6 +120,14 @@ module.exports = {
 
             jsonData.isSuccess = true;
             jsonData.coach = coach;
+            esService.create('coach', coach.id,
+                {
+                    subject: coach.subject,
+                    description: coach.description,
+                    phoneNumber: coach.phoneNumber,
+                    price: coach.price,
+                    avgRate: coach.avgRate
+                });
             res.json(jsonData);
         });
     },
@@ -188,6 +196,7 @@ module.exports = {
 
             jsonData.isSuccess = true;
             jsonData.coach = coaches[0];
+            esService.update('coach', id, coachParams);
             res.json(jsonData);
         });
 
@@ -342,6 +351,7 @@ module.exports = {
 
             jsonData.isSuccess = true;
             jsonData.coach = coaches[0];
+            esService.delete('coach', id);
             res.json(jsonData);
         });
     },
