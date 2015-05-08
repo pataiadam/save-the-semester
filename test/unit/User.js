@@ -9,9 +9,14 @@ describe('User', function(){
     describe('createUser', function(){
         it('should create a user', function(done){
             var api = 'webapi/user/createUser';
-            var params = {name: 'test_name', email: 'test@email.org'};
+            var params = {
+                name: 'test_name',
+                email: 'test@email.org',
+                loc: { x: 46.253010, y: 20.141425 }
+            };
 
             request.send(api, params, function(result){
+                console.log(result.error);
                 result.should.have.property('isSuccess');
                 result.isSuccess.should.equal(true);
                 result.should.have.property('error');
@@ -21,6 +26,11 @@ describe('User', function(){
                 result.user.should.have.property('email');
                 result.user.name.should.equal('test_name');
                 result.user.email.should.equal('test@email.org');
+                result.user.should.have.property('loc');
+                result.user.loc.should.have.property('x');
+                result.user.loc.x.should.equal(46.253010);
+                result.user.loc.should.have.property('y');
+                result.user.loc.y.should.equal(20.141425);
                 user = result.user;
                 done();
             })

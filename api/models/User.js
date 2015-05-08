@@ -22,12 +22,22 @@ module.exports = {
             type: 'email',
             email: true
         },
+        loc: {
+            type: 'json',
+            point: true
+        },
         passports: {
             collection: 'Passport',
             via: 'user'
         },
         deletedAt: {
             type: 'datetime'
+        }
+    },
+    types: {
+        // insertion: <attr_name>: { x: <x-value>, y: <y-value> }
+        point: function(latlng) {
+            return latlng.x && latlng.y
         }
     }
 };
