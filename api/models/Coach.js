@@ -14,7 +14,8 @@ module.exports = {
             type: 'objectid'
         },
         userId: {
-            model: 'User'
+            model: 'User',
+            required: true
         },
         subject: {
             type: 'string',
