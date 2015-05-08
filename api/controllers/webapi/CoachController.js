@@ -13,16 +13,18 @@ module.exports = {
             coaches: []
         };
 
-        Coach.find({deletedAt: null}).exec(function (err, coaches) {
-            if (!!err) {
-                sails.log.error(err);
-                jsonData.error = err.details;
-                return res.json(jsonData);
-            }
+        Coach.find({deletedAt: null})
+            .populate('userId')
+            .exec(function (err, coaches) {
+                if (!!err) {
+                    sails.log.error(err);
+                    jsonData.error = err.details;
+                    return res.json(jsonData);
+                }
 
-            jsonData.isSuccess = true;
-            jsonData.coaches = coaches;
-            res.json(jsonData);
+                jsonData.isSuccess = true;
+                jsonData.coaches = coaches;
+                res.json(jsonData);
         });
     },
 
@@ -41,23 +43,25 @@ module.exports = {
             return res.json(jsonData);
         }
 
-        Coach.findOne({id: coachParams.id, deletedAt: null}).exec(function (err, coach) {
-            if (!!err) {
-                sails.log.error(err);
-                jsonData.error = err.details;
-                return res.json(jsonData);
-            }
+        Coach.findOne({id: coachParams.id, deletedAt: null})
+            .populate('userId')
+            .exec(function (err, coach) {
+                if (!!err) {
+                    sails.log.error(err);
+                    jsonData.error = err.details;
+                    return res.json(jsonData);
+                }
 
-            if (coach === undefined) {
-                var msg = 'Record not found with id: ' + coachParams.id;
-                sails.log.error(msg);
-                jsonData.error = msg;
-                return res.json(jsonData);
-            }
+                if (coach === undefined) {
+                    var msg = 'Record not found with id: ' + coachParams.id;
+                    sails.log.error(msg);
+                    jsonData.error = msg;
+                    return res.json(jsonData);
+                }
 
-            jsonData.isSuccess = true;
-            jsonData.coach = coach;
-            res.json(jsonData);
+                jsonData.isSuccess = true;
+                jsonData.coach = coach;
+                res.json(jsonData);
         });
     },
     
@@ -76,29 +80,31 @@ module.exports = {
             return res.json(jsonData);
         }
 
-        Coach.find({userId: coachParams.userId, deletedAt: null}).exec(function (err, coaches) {
-            if (!!err) {
-                sails.log.error(err);
-                jsonData.error = err.details;
-                return res.json(jsonData);
-            }
+        Coach.find({userId: coachParams.userId, deletedAt: null})
+            .populate('userId')
+            .exec(function (err, coaches) {
+                if (!!err) {
+                    sails.log.error(err);
+                    jsonData.error = err.details;
+                    return res.json(jsonData);
+                }
 
-            if (coaches === undefined) {
-                var msg = 'Record not found with id: ' + coachParams.userId;
-                sails.log.error(msg);
-                jsonData.error = msg;
-                return res.json(jsonData);
-            }
+                if (coaches === undefined) {
+                    var msg = 'Record not found with id: ' + coachParams.userId;
+                    sails.log.error(msg);
+                    jsonData.error = msg;
+                    return res.json(jsonData);
+                }
 
-            jsonData.isSuccess = true;
-            jsonData.coaches = coaches;
-            res.json(jsonData);
+                jsonData.isSuccess = true;
+                jsonData.coaches = coaches;
+                res.json(jsonData);
         });
     },
 
     createCoach: function (req, res) {
         var coachParams = req.body;
-        _.extend(coachParams, {userId: req.user.id});
+        //_.extend(coachParams, {userId: req.user.id});
         var jsonData = {
             isSuccess: false,
             error: '',
@@ -138,15 +144,17 @@ module.exports = {
             Coach.find({or: [{
                             subject: {
                                 'like': '%' + searchParams.search + '%'}
-                            }]}).exec(function(err, results){
-                if (!!err) {
-                    sails.log.error(err);
-                    jsonData.error = err.details;
-                    return res.json(jsonData);
-                }
-                jsonData.isSuccess = true;
-                jsonData.coaches = results;
-                res.json(jsonData);
+                            }]})
+                .populate('userId')
+                .exec(function(err, results){
+                    if (!!err) {
+                        sails.log.error(err);
+                        jsonData.error = err.details;
+                        return res.json(jsonData);
+                    }
+                    jsonData.isSuccess = true;
+                    jsonData.coaches = results;
+                    res.json(jsonData);
             });
         }else{
             var msg = 'Missing parameters: search undefined.';
@@ -295,16 +303,19 @@ module.exports = {
             return res.json(jsonData);
         }
         
-        Rate.find({coachId: params.coachId, userId: params.userId, deletedAt: null}).exec(function (err, rates) {
-            if (!!err) {
-                sails.log.error(err);
-                jsonData.error = err.details;
-                return res.json(jsonData);
-            }
-            
-            jsonData.isSuccess = true;
-            jsonData.rate = rates[0];
-            res.json(jsonData);
+        Rate.find({coachId: params.coachId, userId: params.userId, deletedAt: null})
+            .populate('userId')
+            .populate('coachId')
+            .exec(function (err, rates) {
+                if (!!err) {
+                    sails.log.error(err);
+                    jsonData.error = err.details;
+                    return res.json(jsonData);
+                }
+
+                jsonData.isSuccess = true;
+                jsonData.rate = rates[0];
+                res.json(jsonData);
         });
     },
 

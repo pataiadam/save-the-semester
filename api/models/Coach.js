@@ -14,7 +14,8 @@ module.exports = {
             type: 'objectid'
         },
         userId: {
-            model: 'User'
+            model: 'User',
+            required: true
         },
         subject: {
             type: 'string',
@@ -26,10 +27,6 @@ module.exports = {
         phoneNumber: {
         	type: 'string',
         	numeric: true
-        },
-        email: {
-        	type: 'email',
-        	email: true
         },
         price: {
         	type: 'float',

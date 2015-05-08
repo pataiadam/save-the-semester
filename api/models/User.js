@@ -22,6 +22,10 @@ module.exports = {
             type: 'email',
             email: true
         },
+        loc: {
+            type: 'json',
+            point: true
+        },
         passports: {
             collection: 'Passport',
             via: 'user'
@@ -29,5 +33,19 @@ module.exports = {
         deletedAt: {
             type: 'datetime'
         }
+    },
+    types: {
+        // insertion: <attr_name>: { x: <x-value>, y: <y-value> }
+        point: function(latlng) {
+            return latlng.x && latlng.y
+        }
+    },
+    beforeValidate: function(value, next){
+        for(key in value){
+            if(!User.definition.hasOwnProperty(key)){
+                delete value[key];
+            }
+        }
+        next();
     }
 };

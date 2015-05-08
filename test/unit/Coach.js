@@ -6,11 +6,17 @@ chai.should();
 
 
 describe('Coach', function(){
-    var coach, learner, user, rate;
+    var coach, learner, user, rate, id;
     describe('createCoach', function(){
+
+        before(function(){
+            User.create({name: 'test_coach', email: 'coach@email.org'}).exec(function(err,u){
+                id = u.id;
+            })
+        });
         it('should create a coach', function(done){
             var api = 'webapi/coach/createCoach';
-            var params = {subject: 'test_subject', description: 'test_description', phoneNumber: '06301234567', email: 'test@coach.org'};
+            var params = {userId: id, subject: 'test_subject', description: 'test_description', phoneNumber: '06301234567'};
 
             request.send(api, params, function(result){
                 result.should.have.property('isSuccess');
@@ -18,14 +24,14 @@ describe('Coach', function(){
                 result.should.have.property('error');
                 result.error.should.equal('');
                 result.should.have.property('coach');
+                result.coach.should.have.property('userId');
+                result.coach.userId.should.equal(id);
                 result.coach.should.have.property('subject');
                 result.coach.should.have.property('description');
                 result.coach.subject.should.equal('test_subject');
                 result.coach.description.should.equal('test_description');
                 result.coach.should.have.property('phoneNumber');
                 result.coach.phoneNumber.should.equal('06301234567');
-                result.coach.should.have.property('email');
-                result.coach.email.should.equal('test@coach.org');
                 result.coach.should.have.property('price');
                 result.coach.price.should.equal(0.0);
                 result.coach.should.have.property('avgRate');
@@ -64,6 +70,9 @@ describe('Coach', function(){
                 result.should.have.property('error');
                 result.error.should.equal('');
                 result.should.have.property('coach');
+                result.coach.should.have.property('userId');
+                result.coach.userId.should.have.property('id');
+                result.coach.userId.id.should.equal(id);
                 result.coach.should.have.property('subject');
                 result.coach.should.have.property('description');
                 result.coach.subject.should.equal('test_subject');
@@ -115,7 +124,6 @@ describe('Coach', function(){
                             subject: 'updatedTest',
                             description: 'updatedDescription',
                             phoneNumber: '06309876543',
-                            email: 'updated@coach.org',
                             price: 500.0};
 
             request.send(api, params, function(result){
@@ -127,7 +135,6 @@ describe('Coach', function(){
                 result.coach.subject.should.equal('updatedTest');
                 result.coach.description.should.equal('updatedDescription');
                 result.coach.phoneNumber.should.equal('06309876543');
-                result.coach.email.should.equal('updated@coach.org');
                 result.coach.price.should.equal(500.0);
                 done();
             })
@@ -185,9 +192,11 @@ describe('Coach', function(){
                 result.error.should.equal('');
                 result.should.have.property('rate');
                 result.rate.should.have.property('coachId');
-                result.rate.coachId.should.equal(coach.id);
+                result.rate.coachId.should.have.property('id');
+                result.rate.coachId.id.should.equal(coach.id);
                 result.rate.should.have.property('userId');
-                result.rate.userId.should.equal(user.id);
+                result.rate.userId.should.have.property('id');
+                result.rate.userId.id.should.equal(user.id);
                 result.rate.should.have.property('value');
                 result.rate.value.should.equal(5.0);
                 result.rate.should.have.property('comment');
