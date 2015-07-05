@@ -24,7 +24,7 @@ module.exports = {
     create: function (req, res) {
         if (req.method === 'GET') {
             User.find()
-                .populate('userId')
+                .populateAll()
                 .exec(function (err, users) {
                     if (!!err) {
                         sails.log.error(err);
