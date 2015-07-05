@@ -25,82 +25,8 @@ module.exports = {
             params.filtered = searchParams.filtered;
         }
         var searchStr = searchParams.search;
-
-        esService.search(searchStr, params, function(result, err){
-            if(!!err){
-                sails.log.error(err);
-                jsonData.error = err.details;
-                return res.json(jsonData);
-            }
-
-            for(var i = 0; i < result.total && i < 10; ++i) {
-                jsonData.results.push(result.hits[i]);
-            }
-            jsonData.isSuccess = true;
-            res.json(jsonData);
-        });
-    },
-
-    getLocationByLatLng : function(req, res) {
-
-        var params = req.body;
-        var jsonData = {
-            isSuccess: false,
-            error: '',
-            results: []
-        };
-
-        if (!params.hasOwnProperty('lat')) {
-            var msg = 'Missing parameters: lat undefined.';
-            sails.log.error(msg);
-            jsonData.error = msg;
-            return res.json(jsonData);
-        }
-
-        if (!params.hasOwnProperty('lng')) {
-            var msg = 'Missing parameters: lng undefined.';
-            sails.log.error(msg);
-            jsonData.error = msg;
-            return res.json(jsonData);
-        }
-
-        gcService.reverseGeocode(params.lat, params.lng, function(err, results){
-            if (!!err) {
-                sails.log.error(err);
-                jsonData.error = err.details;
-                return res.json(jsonData);
-            }
-            jsonData.results = results;
-            jsonData.isSuccess = true;
-            res.json(jsonData);
-        });
-    },
-
-    getLatLngByLocation : function(req, res) {
-
-        var params = req.body;
-        var jsonData = {
-            isSuccess: false,
-            error: '',
-            results: {}
-        };
-
-        if (!params.hasOwnProperty('search')) {
-            var msg = 'Missing parameters: search undefined.';
-            sails.log.error(msg);
-            jsonData.error = msg;
-            return res.json(jsonData);
-        }
-
-        gcService.geocode(params.search, function(err, results){
-            if (!!err) {
-                sails.log.error(err);
-                jsonData.error = err.details;
-                return res.json(jsonData);
-            }
-            jsonData.results = results;
-            jsonData.isSuccess = true;
-            res.json(jsonData);
-        });
+        
+        jsonData.isSuccess = true;
+        res.json(jsonData);
     }
 };
